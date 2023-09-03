@@ -1,17 +1,6 @@
 # Personal Portfolio Website
 
-This repository contains the source code for my personal portfolio website, built using Next.js, Tailwind CSS, ESLint, and more.
-
-## Skip to Section
-
-- [Introduction](#introduction)
-- [Technologies Used](#technologies-used)
-- [Usage](#getting-started)
-- [Acknowledgments](#acknowledgments)
-
-## Introduction
-
-This is a repository for my personal portfolio website! This website serves as a showcase of my projects, skills, and experiences. Feel free to explore it to learn more about me and my work.
+This repository contains the source code for my personal portfolio website, built using Next.js, Tailwind CSS, ESLint, and more. This website serves as a showcase of my projects, skills, and experiences. Feel free to explore it to learn more about me and my work.
 
 ## Technologies Used
 
@@ -21,7 +10,7 @@ This project leverages the following technologies and tools:
 - [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for rapidly building custom user interfaces.
 - [ESLint](https://eslint.org/): A tool for identifying and fixing code quality issues in JavaScript.
 
-## Getting Started
+## Repo Usage
 
 To run this portfolio website on your local system, follow these steps:
 
