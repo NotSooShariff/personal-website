@@ -1,1 +1,125 @@
-{"name":"Owais ","headerTaglineOne":"Hello 👋","headerTaglineTwo":"I'm Owais Shariff","headerTaglineThree":"Cybersecurity Intern","headerTaglineFour":" based in Bangalore, India.","showCursor":true,"showBlog":false,"darkMode":true,"showResume":true,"socials":[{"id":"1","title":"Github","link":"https://github.com/NotSooShariff"},{"id":"2","title":"LinkedIn","link":"https://www.linkedin.com/in/owais-shariff/"},{"id":"25e479c5-4a61-49a4-8a23-bd6cdb6e2d17","title":"Instagram","link":"https://www.instagram.com/oshwithoutmusic/"},{"id":"b6a4ab74-667c-43e9-8b4a-9bd79b9ab7ec","title":"Email","link":"mailto:owais.ahmed.shariff@gmail.com"}],"resumesocials":[{"id":"1","title":"Github","link":"https://github.com/NotSooShariff"},{"id":"2","title":"LinkedIn","link":"https://www.linkedin.com/in/owais-shariff/"},{"id":"b6a4ab74-667c-43e9-8b4a-9bd79b9ab7ec","title":"Email","link":"mailto:owais.ahmed.shariff@gmail.com"}],"projects":[{"id":"1","title":"Email Spam Classification Project","description":"Machine Learning, Manifest V3, MERN Dev","imageSrc":"https://images.unsplash.com/photo-1530436098968-cab21a5dfea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80","url":"https://github.com/NotSooShariff/Mail-Spam-Classification"},{"id":"2","title":"Credit Card Fraud Detection API","description":"Machine Learning, FastAPI, Ngrok","imageSrc":"https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80","url":"https://github.com/NotSooShariff/CC-Fraud-Detection"}],"services":[{"id":"1","title":"Web Penetration Testing","description":"I have great exposure to web penetration testing tools like Burpsuite, OWASP ZAP, Nmap, Metasploit, Wireshark, Nessus etc. and can help improve your web application's security."},{"id":"2","title":"Network Defense","description":"Having been certified in CISCO's Network Devices, Network Defense & Endpoint Security courses, and Network Defense Essentials from EC-Council, I significantly understand computer networks."},{"id":"3","title":"Best Industry Practices","description":"I'm currently training for certifications like CEHv12 from EC-Council and CompTIA Security+ and the knowledge gained therein has given me a good understanding of frameworks like NIST CSF, ISO 27001 etc and how to adhere to them and/or implement them"},{"id":"4","title":"Vulnerability Assessment","description":"I can help in conducting thorough security assessments, penetration testing, and vulnerability scanning to pinpoint potential security risks. Following the assessment, I can offer guidance and support for remediation efforts to help clients patch or mitigate vulnerabilities effectively."}],"aboutpara":"I am a third-year student at VIT Vellore, pursuing a Bachelor's in Computer Science. Over the past two years, I have gained valuable experience through my involvement in various web development projects, and more recently, I have shifted my educational focus to cybersecurity, where I am eager to learn and excel. I thrive in collaborative group environments when it comes to problem-solving. I am now actively seeking opportunities to apply my skills, advance my career, and embrace new technologies. To learn more about me, please visit my LinkedIn profile or feel free to contact me via email using the provided links below.","resume":{"tagline":"👋  I'm a Cybersecurity Intern, AI/ML Enthusiast","description":"I am a dedicated computer science student with a focus on cybersecurity,\naiming to become proficient in safeguarding digital systems and data. ","experiences":[{"id":"1","dates":"October 2022 - December 2022","type":"Internship","position":"Web Design & Development Intern at PiLiot","bullets":"Contributed to the development of projects during an internship. , Collaborated with a team to create intuitive and visually appealing user interfaces. ,  Applied user-centered principles to enhance website functionality and accessibility and conducted thorough user research to inform design decisions. , Developed responsive layouts and integrated interactive elements for improved user engagement."},{"id":"d495c23b-4f65-479a-9b8a-cfbc1c089725","dates":"July 2020 - March 2022","type":"Volunteering","position":"Board Member - Tech Head at Becoming I Foundaton","bullets":"Served as a Board Member and Head of Tech and Design at Becoming I Foundation (BIF) which is an NGO focused on providing free and high-quality education to underprivileged children. , Developed and implemented technological solutions to enhance operational efficiency including the creation of portals and automation scripts & algorithms. , Contributed to BIF's partnership with institutes like St. Jude's leveraging technology to facilitate collaboration and support fundraising efforts."}],"education":{"universityName":"Vellore Institute of Technology (VIT)","universityDate":"2021-2025","universityPara":"Pre-Final year student at VIT pursuing B. Tech in Computer Science with Specialization in Information Security"},"languages":["Penetration Testing","Web Development","Programming "],"frameworks":["CEH v12 ","Comptia Security+","Google Cybersecurity Cert"],"others":["EC-Council Essentials","CISCO Networks","Z Security Bug Bounty"]}}
+{
+  "name": "Owais ",
+  "headerTaglineOne": "Hello 👋",
+  "headerTaglineTwo": "I'm Owais Shariff",
+  "headerTaglineThree": "Cybersecurity Intern",
+  "headerTaglineFour": " based in Bangalore, India.",
+  "showCursor": true,
+  "showBlog": false,
+  "darkMode": true,
+  "showResume": true,
+  "socials": [
+    {
+      "id": "1",
+      "title": "Github",
+      "link": "https://github.com/NotSooShariff"
+    },
+    {
+      "id": "2",
+      "title": "LinkedIn",
+      "link": "https://www.linkedin.com/in/owais-shariff/"
+    },
+    {
+      "id": "25e479c5-4a61-49a4-8a23-bd6cdb6e2d17",
+      "title": "Instagram",
+      "link": "https://www.instagram.com/oshwithoutmusic/"
+    },
+    {
+      "id": "b6a4ab74-667c-43e9-8b4a-9bd79b9ab7ec",
+      "title": "Email",
+      "link": "mailto:owais.ahmed.shariff@gmail.com"
+    }
+  ],
+  "resumesocials": [
+    {
+      "id": "1",
+      "title": "Github",
+      "link": "https://github.com/NotSooShariff"
+    },
+    {
+      "id": "2",
+      "title": "LinkedIn",
+      "link": "https://www.linkedin.com/in/owais-shariff/"
+    },
+    {
+      "id": "b6a4ab74-667c-43e9-8b4a-9bd79b9ab7ec",
+      "title": "Email",
+      "link": "mailto:owais.ahmed.shariff@gmail.com"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Email Spam Classification Project",
+      "description": "Machine Learning, Manifest V3, MERN Dev",
+      "imageSrc": "https://images.unsplash.com/photo-1530436098968-cab21a5dfea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
+      "url": "https://github.com/NotSooShariff/Mail-Spam-Classification"
+    },
+    {
+      "id": "2",
+      "title": "Credit Card Fraud Detection API",
+      "description": "Machine Learning, FastAPI, Ngrok",
+      "imageSrc": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
+      "url": "https://github.com/NotSooShariff/CC-Fraud-Detection"
+    }
+  ],
+  "services": [
+    {
+      "id": "1",
+      "title": "Web Penetration Testing",
+      "description": "I have great exposure to web penetration testing tools like Burpsuite, OWASP ZAP, Nmap, Metasploit, Wireshark, Nessus etc. and can help improve your web application's security."
+    },
+    {
+      "id": "2",
+      "title": "Network Defense",
+      "description": "Having been certified in CISCO's Network Devices, Network Defense & Endpoint Security courses, and Network Defense Essentials from EC-Council, I significantly understand computer networks."
+    },
+    {
+      "id": "3",
+      "title": "Best Industry Practices",
+      "description": "I'm currently training for certifications like CEHv12 from EC-Council and CompTIA Security+ and the knowledge gained therein has given me a good understanding of frameworks like NIST CSF, ISO 27001 etc and how to adhere to them and/or implement them"
+    },
+    {
+      "id": "4",
+      "title": "Vulnerability Assessment",
+      "description": "I can help in conducting thorough security assessments, penetration testing, and vulnerability scanning to pinpoint potential security risks. Following the assessment, I can offer guidance and support for remediation efforts to help clients patch or mitigate vulnerabilities effectively."
+    }
+  ],
+  "aboutpara": "I am a third-year student at VIT Vellore, pursuing a Bachelor's in Computer Science. Over the past two years, I have gained valuable experience through my involvement in various web development projects, and more recently, I have shifted my educational focus to cybersecurity, where I am eager to learn and excel. I thrive in collaborative group environments when it comes to problem-solving. I am now actively seeking opportunities to apply my skills, advance my career, and embrace new technologies. To learn more about me, please visit my LinkedIn profile or feel free to contact me via email using the provided links below.",
+  "resume": {
+    "tagline": "👋  I'm a Cybersecurity Intern, AI/ML Enthusiast",
+    "description": "I am a dedicated computer science student with a focus on cybersecurity,\naiming to become proficient in safeguarding digital systems and data. ",
+    "experiences": [
+      {
+        "id": "1",
+        "dates": "October 2022 - December 2022",
+        "type": "Internship",
+        "position": "Web Design & Development Intern at PiLiot",
+        "bullets": "Contributed to the development of projects during an internship. , Collaborated with a team to create intuitive and visually appealing user interfaces. ,  Applied user-centered principles to enhance website functionality and accessibility and conducted thorough user research to inform design decisions. , Developed responsive layouts and integrated interactive elements for improved user engagement."
+      },
+      {
+        "id": "d495c23b-4f65-479a-9b8a-cfbc1c089725",
+        "dates": "July 2020 - March 2022",
+        "type": "Volunteering",
+        "position": "Board Member - Tech Head at Becoming I Foundaton",
+        "bullets": "Served as a Board Member and Head of Tech and Design at Becoming I Foundation (BIF) which is an NGO focused on providing free and high-quality education to underprivileged children. , Developed and implemented technological solutions to enhance operational efficiency including the creation of portals and automation scripts & algorithms. , Contributed to BIF's partnership with institutes like St. Jude's leveraging technology to facilitate collaboration and support fundraising efforts."
+      }
+    ],
+    "education": {
+      "universityName": "Vellore Institute of Technology (VIT)",
+      "universityDate": "2021-2025",
+      "universityPara": "Pre-Final year student at VIT pursuing B. Tech in Computer Science with Specialization in Information Security"
+    },
+    "languages": ["Penetration Testing", "Web Development", "Programming "],
+    "frameworks": [
+      "CEH v12 ",
+      "Comptia Security+",
+      "Google Cybersecurity Cert"
+    ],
+    "others": [
+      "EC-Council Essentials",
+      "CISCO Networks",
+      "Z Security Bug Bounty"
+    ]
+  }
+}

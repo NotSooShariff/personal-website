@@ -17,6 +17,17 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
     setMounted(true);
   }, []);
 
+  // Determine the default theme based on device type
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      // Set default to "light" on mobile devices
+      setTheme("light");
+    } else {
+      // Use the value of "darkMode" on desktop
+      setTheme(data.darkMode ? "dark" : "light");
+    }
+  }, []);
+
   return (
     <>
       <Popover className="block tablet:hidden mt-5">
