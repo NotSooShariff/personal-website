@@ -77,7 +77,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   {showResume && (
                     <Button
                       onClick={() =>
-                        window.open("mailto:hello@chetanverma.com")
+                        window.open("mailto:owais.ahmed.shariff@gmail.com?subject=Appointment%20Scheduling%20Request&body=Hey,%0A%0AI%20found%20your%20work%20interesting%20and%20would%20like%20to%20schedule%20a%20call%20with%20you.%20Please%20let%20me%20know%20your%20availability.")
                       }
                     >
                       Resume
@@ -85,7 +85,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   )}
 
                   <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
+                    onClick={() => window.open("mailto:owais.ahmed.shariff@gmail.com?subject=Appointment%20Scheduling%20Request&body=Hey,%0A%0AI%20found%20your%20work%20interesting%20and%20would%20like%20to%20schedule%20a%20call%20with%20you.%20Please%20let%20me%20know%20your%20availability.")}
                   >
                     Contact
                   </Button>
@@ -108,7 +108,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   )}
 
                   <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
+                    onClick={() => window.open("mailto:owais.ahmed.shariff@gmail.com?subject=Appointment%20Scheduling%20Request&body=Hey,%0A%0AI%20found%20your%20work%20interesting%20and%20would%20like%20to%20schedule%20a%20call%20with%20you.%20Please%20let%20me%20know%20your%20availability.")}
                   >
                     Contact
                   </Button>
@@ -145,7 +145,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
+            <Button onClick={() => window.open("mailto:owais.ahmed.shariff@gmail.com?subject=Appointment%20Scheduling%20Request&body=Hey,%0A%0AI%20found%20your%20work%20interesting%20and%20would%20like%20to%20schedule%20a%20call%20with%20you.%20Please%20let%20me%20know%20your%20availability.")}>
               Contact
             </Button>
             {mounted && theme && data.darkMode && (
@@ -174,7 +174,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               </Button>
             )}
 
-            <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
+            <Button onClick={() => window.open("mailto:owais.ahmed.shariff@gmail.com?subject=Appointment%20Scheduling%20Request&body=Hey,%0A%0AI%20found%20your%20work%20interesting%20and%20would%20like%20to%20schedule%20a%20call%20with%20you.%20Please%20let%20me%20know%20your%20availability.")}>
               Contact
             </Button>
 

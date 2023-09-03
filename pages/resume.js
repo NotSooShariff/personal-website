@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Cursor from "../components/Cursor";
 import Header from "../components/Header";
 import ProjectResume from "../components/ProjectResume";
-import Socials from "../components/Socials";
+// import Socials from "../components/Socials";
+import ResumeSocials from "../components/ResumeSocials";
 import Button from "../components/Button";
 import { useTheme } from "next-themes";
 // Data
@@ -51,7 +52,8 @@ const Resume = () => {
                 {resume.description}
               </h2>
               <div className="mt-2">
-                <Socials />
+                <ResumeSocials />
+                {/* Made a change here */}
               </div>
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Experience</h1>
@@ -80,12 +82,26 @@ const Resume = () => {
                   </p>
                 </div>
               </div>
+
               <div className="mt-5">
-                <h1 className="text-2xl font-bold">Skills</h1>
+                <h1 className="text-2xl font-bold">Research</h1>
+                <div className="mt-2">
+                  <h2 className="text-lg">Beyond the Quantum Threat: Implementing Post-Quantum Cryptography for Enhanced Protocol Security</h2>
+                  {/* <h3 className="text-sm opacity-75">
+                  Implementing Post-Quantum Cryptography for Enhanced Protocol Security
+                  </h3> */}
+                  <p className="text-sm mt-2 opacity-50">
+                  A paper on post-quantum cryptography & analyzing cryptographic algorithm implementations for secure communication protocols.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-5">
+                <h1 className="text-2xl font-bold">Others</h1>
                 <div className="flex mob:flex-col desktop:flex-row justify-between">
                   {resume.languages && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Languages</h2>
+                      <h2 className="text-lg">Skills</h2>
                       <ul className="list-disc">
                         {resume.languages.map((language, index) => (
                           <li key={index} className="ml-5 py-2">
@@ -98,7 +114,7 @@ const Resume = () => {
 
                   {resume.frameworks && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Frameworks</h2>
+                      <h2 className="text-lg">Certifications</h2>
                       <ul className="list-disc">
                         {resume.frameworks.map((framework, index) => (
                           <li key={index} className="ml-5 py-2">
@@ -111,7 +127,7 @@ const Resume = () => {
 
                   {resume.others && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Others</h2>
+                      <h2 className="text-lg">Courses</h2>
                       <ul className="list-disc">
                         {resume.others.map((other, index) => (
                           <li key={index} className="ml-5 py-2">
