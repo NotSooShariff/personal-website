@@ -51,7 +51,7 @@
     {
       "id": "1",
       "title": "Email Spam Classification Project",
-      "description": "Machine Learning, Manifest V3, Ngrok",
+      "description": "Machine Learning, Manifest V3, Flask, Ngrok",
       "imageSrc": "https://images.unsplash.com/photo-1530436098968-cab21a5dfea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
       "url": "https://github.com/NotSooShariff/SpamWardenAPI"
     },
