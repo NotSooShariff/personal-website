@@ -53,6 +53,19 @@ export default function Home() {
       {data.showCursor && <Cursor />}
       <Head>
         <title>{data.name}</title>
+        {/* Open Graph Protocol (OGP) for Facebook and LinkedIn */}
+        <meta property="og:title" content={data.name} />
+        <meta property="og:description" content="Cybersecurity Intern based in Bangalore, India" />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1533709752211-118fcaf03312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://osh.fyi" /> 
+                  
+        {/* Twitter Cards for Twitter */}
+        <meta name="twitter:title" content={data.name} />
+        <meta name="twitter:description" content="Cybersecurity Intern based in Bangalore, India" />
+        <meta name="twitter:image" content="https://images.unsplash.com/photo-1533709752211-118fcaf03312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" />
+        <meta name="twitter:card" content="summary_large_image" />
+ 
       </Head>
 
       <div className="gradient-circle"></div>
