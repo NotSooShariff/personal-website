@@ -58,7 +58,7 @@
     {
       "id": "2",
       "title": "Credit Card Fraud Detection API",
-      "description": "Machine Learning, FastAPI, Ngrok",
+      "description": "Machine Learning, Flask, FastAPI, Ngrok",
       "imageSrc": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
       "url": "https://github.com/NotSooShariff/CC-Fraud-Detection"
     }
