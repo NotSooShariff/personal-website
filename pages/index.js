@@ -53,6 +53,7 @@ export default function Home() {
       {data.showCursor && <Cursor />}
       <Head>
         <title>{data.name}</title>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';"></meta>
         <meta name="google-site-verification" content="ziD6PRJ-aAJkeyBQyjoFmLznEmJSSv7Z5sjDbpku5c4" />
         {/* Open Graph Protocol (OGP) for Facebook and LinkedIn */}
         <meta property="og:title" content={data.name} />
