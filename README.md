@@ -8,7 +8,6 @@ This project leverages the following technologies and tools:
 
 - [Next.js](https://nextjs.org/): A React framework for building server-rendered web applications.
 - [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for rapidly building custom user interfaces.
-- [ESLint](https://eslint.org/): A tool for identifying and fixing code quality issues in JavaScript.
 
 ## Repo Usage
 
