@@ -53,6 +53,8 @@ export default function Home() {
       {data.showCursor && <Cursor />}
       <Head>
         <title>{data.name}</title>
+        <meta name="description" content="Welcome to the online portfolio of Owais Shariff, a dedicated Cybersecurity Intern. Explore my journey through the world of cybersecurity, where I learn, experiment, and contribute to the ever-evolving field of digital security. Discover my projects, research, and insights on this platform, as I work towards safeguarding the digital realm. Join me in exploring the latest trends, best practices, and cutting-edge solutions in the field of cybersecurity." />
+
         <meta name="google-site-verification" content="ziD6PRJ-aAJkeyBQyjoFmLznEmJSSv7Z5sjDbpku5c4" />
         {/* Open Graph Protocol (OGP) for Facebook and LinkedIn */}
         <meta property="og:title" content={data.name} />
