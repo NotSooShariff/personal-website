@@ -52,23 +52,24 @@ export default function Home() {
     <div className={`relative ${data.showCursor && "cursor-none"}`}>
       {data.showCursor && <Cursor />}
       <Head>
-        <title>{data.name}</title>
-        <meta name="description" content="Welcome to the online portfolio of Owais Shariff, a dedicated Cybersecurity Intern. Explore my journey through the world of cybersecurity, where I learn, experiment, and contribute to the ever-evolving field of digital security. Discover my projects, research, and insights on this platform, as I work towards safeguarding the digital realm. Join me in exploring the latest trends, best practices, and cutting-edge solutions in the field of cybersecurity." />
+      <title>Owais Shariff - Security Maverick</title>
+      <meta name="description" content="I am Owais, a Cyber Security Enthusiast and a Hacker.  Discover my projects, research, and insights on my portfolio"/>
 
-        <meta name="google-site-verification" content="ziD6PRJ-aAJkeyBQyjoFmLznEmJSSv7Z5sjDbpku5c4" />
-        {/* Open Graph Protocol (OGP) for Facebook and LinkedIn */}
-        <meta property="og:title" content={data.name} />
-        <meta property="og:description" content="Cybersecurity Intern based in Bangalore, India" />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1533709752211-118fcaf03312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osh.fyi" /> 
-                  
-        {/* Twitter Cards for Twitter */}
-        <meta name="twitter:title" content={data.name} />
-        <meta name="twitter:description" content="Cybersecurity Intern based in Bangalore, India" />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1533709752211-118fcaf03312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" />
-        <meta name="twitter:card" content="summary_large_image" />
- 
+      <meta itemProp="name" content="Owais Shariff - Security Maverick"/>
+      <meta itemProp="description" content="I am Owais, a Cyber Security Enthusiast and a Hacker.  Discover my projects, research, and insights on my portfolio"/>
+      <meta itemProp="image" content="https://raw.githubusercontent.com/NotSooShariff/personal-portfolio/main/public/images/og.png"/>
+
+      <meta property="og:url" content="https://osh.fyi"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:title" content="Owais Shariff - Security Maverick"/>
+      <meta property="og:description" content="I am Owais, a Cyber Security Enthusiast and a Hacker.  Discover my projects, research, and insights on my portfolio"/>
+      <meta property="og:image" content="https://raw.githubusercontent.com/NotSooShariff/personal-portfolio/main/public/images/og.png"/>
+
+      <meta name="twitter:card" content="summary_large_image"/>
+      <meta name="twitter:title" content="Owais Shariff - Security Maverick"/>
+      <meta name="twitter:description" content="I am Owais, a Cyber Security Enthusiast and a Hacker.  Discover my projects, research, and insights on my portfolio"/>
+      <meta name="twitter:image" content="https://raw.githubusercontent.com/NotSooShariff/personal-portfolio/main/public/images/og.png"/>
+
       </Head>
 
       <div className="gradient-circle"></div>
