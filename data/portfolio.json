@@ -53,14 +53,14 @@
       "title": "Email Spam Classification Extension",
       "description": "Machine Learning, Manifest V3, Flask, Docker",
       "imageSrc": "https://images.unsplash.com/photo-1530436098968-cab21a5dfea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80",
-      "url": "https://github.com/NotSooShariff/SpamWardenAPI"
+      "url": "https://github.com/NotSooShariff/spamwarden-api"
     },
     {
       "id": "2",
       "title": "Credit Card Fraud Detection API",
       "description": "Machine Learning, Flask, FastAPI, Ngrok",
       "imageSrc": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
-      "url": "https://github.com/NotSooShariff/CC-Fraud-Detection"
+      "url": "https://github.com/NotSooShariff/credit-fraud-detection-api"
     }
   ],
   "services": [
