@@ -1,0 +1,2926 @@
+##################################
+#####Detect and Remove Loops######
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void detectAndRemoveLoop() {
+        Node slow = head, fast = head;
+        boolean loopExists = false;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                loopExists = true;
+                break;
+            }
+        }
+
+        if (loopExists) {
+            slow = head;
+            while (slow.next != fast.next) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            fast.next = null; // Remove the loop
+        }
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(20);
+        list.push(4);
+        list.push(15);
+        list.push(10);
+
+        // Create a loop for testing
+        list.head.next.next.next.next = list.head;
+
+        list.detectAndRemoveLoop();
+
+        System.out.println("Linked List after removing loop : ");
+        list.printList();
+    }
+}
+
+
+##################################
+##########Detect  Loops###########
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    boolean detectLoop() {
+        Node slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(20);
+        list.push(4);
+        list.push(15);
+        list.push(10);
+
+        // Create a loop for testing
+        list.head.next.next.next.next = list.head;
+
+        boolean loopExists = list.detectLoop();
+
+        if (loopExists) {
+            System.out.println("Loop exists in the linked list.");
+        } else {
+            System.out.println("No loop exists in the linked list.");
+        }
+    }
+}
+
+
+##################################
+##### Segregate Even and Odd######
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void segregateEvenOdd() {
+        Node evenStart = null, evenEnd = null;
+        Node oddStart = null, oddEnd = null;
+        Node current = head;
+
+        while (current != null) {
+            int val = current.data;
+
+            if (val % 2 == 0) { // Even
+                if (evenStart == null) {
+                    evenStart = current;
+                    evenEnd = evenStart;
+                } else {
+                    evenEnd.next = current;
+                    evenEnd = evenEnd.next;
+                }
+            } else { // Odd
+                if (oddStart == null) {
+                    oddStart = current;
+                    oddEnd = oddStart;
+                } else {
+                    oddEnd.next = current;
+                    oddEnd = oddEnd.next;
+                }
+            }
+
+            current = current.next;
+        }
+
+        if (evenStart == null || oddStart == null)
+            return;
+
+        evenEnd.next = oddStart;
+        oddEnd.next = null;
+
+        head = evenStart;
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(17);
+        list.push(15);
+        list.push(8);
+        list.push(12);
+        list.push(10);
+        list.push(5);
+        list.push(4);
+        list.push(1);
+
+        System.out.println("Original Linked List:");
+        list.printList();
+
+        list.segregateEvenOdd();
+
+        System.out.println("Linked List after segregating even and odd nodes:");
+        list.printList();
+    }
+}
+
+################################
+###Sort the bitonic using dll ##
+################################
+
+class Node {
+    int data;
+    Node prev, next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    void sortBitonic() {
+        if (head == null || head.next == null)
+            return;
+
+        Node mid = findMid(head);
+        Node secondHalf = mid.next;
+        mid.next = null;
+        secondHalf.prev = null;
+
+        secondHalf = reverse(secondHalf);
+
+        merge(head, secondHalf);
+    }
+
+    Node findMid(Node head) {
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    Node reverse(Node head) {
+        Node current = head, prev = null;
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            current.prev = nextNode;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
+
+    void merge(Node first, Node second) {
+        Node temp = null;
+
+        while (first != null && second != null) {
+            if (first.data < second.data) {
+                if (temp == null) {
+                    temp = first;
+                    head = temp;
+                } else {
+                    temp.next = first;
+                    first.prev = temp;
+                    temp = temp.next;
+                }
+                first = first.next;
+            } else {
+                if (temp == null) {
+                    temp = second;
+                    head = temp;
+                } else {
+                    temp.next = second;
+                    second.prev = temp;
+                    temp = temp.next;
+                }
+                second = second.next;
+            }
+        }
+
+        if (first != null) {
+            temp.next = first;
+            first.prev = temp;
+        }
+
+        if (second != null) {
+            temp.next = second;
+            second.prev = temp;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(2);
+        list.insert(3);
+        list.insert(5);
+        list.insert(7);
+        list.insert(9);
+        list.insert(8);
+        list.insert(6);
+        list.insert(4);
+
+        System.out.println("Original Linked List:");
+        list.printList();
+
+        list.sortBitonic();
+
+        System.out.println("Sorted Bitonic Linked List:");
+        list.printList();
+    }
+}
+
+
+##############################
+####Merge Sort on DLL ########
+##############################
+
+class Node {
+    int data;
+    Node prev, next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    void printList(Node node) {
+        Node temp = node;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    Node mergeSort(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node mid = getMiddle(head);
+        Node nextOfMid = mid.next;
+        mid.next = null;
+
+        Node left = mergeSort(head);
+        Node right = mergeSort(nextOfMid);
+
+        return merge(left, right);
+    }
+
+    Node merge(Node left, Node right) {
+        if (left == null) return right;
+        if (right == null) return left;
+
+        Node result = null;
+
+        if (left.data <= right.data) {
+            result = left;
+            result.next = merge(left.next, right);
+            result.next.prev = result;
+        } else {
+            result = right;
+            result.next = merge(left, right.next);
+            result.next.prev = result;
+        }
+
+        return result;
+    }
+
+    Node getMiddle(Node head) {
+        if (head == null) return head;
+
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(6);
+        list.insert(5);
+        list.insert(3);
+        list.insert(1);
+        list.insert(8);
+        list.insert(7);
+        list.insert(2);
+        list.insert(4);
+
+        System.out.println("Original Doubly Linked List:");
+        list.printList(list.head);
+
+        list.head = list.mergeSort(list.head);
+
+        System.out.println("Sorted Doubly Linked List:");
+        list.printList(list.head);
+    }
+}
+
+#################################
+######## Minimum Stack ########## 
+#################################
+
+import java.util.Stack;
+
+class MinimumStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    MinimumStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    void push(int x) {
+        stack.push(x);
+        if (minStack.isEmpty() || x <= minStack.peek()) {
+            minStack.push(x);
+        }
+    }
+
+    void pop() {
+        if (!stack.isEmpty()) {
+            int popped = stack.pop();
+            if (popped == minStack.peek()) {
+                minStack.pop();
+            }
+        }
+    }
+
+    int top() {
+        if (!stack.isEmpty()) {
+            return stack.peek();
+        }
+        return -1; // or throw an exception
+    }
+
+    int getMinimum() {
+        if (!minStack.isEmpty()) {
+            return minStack.peek();
+        }
+        return -1; // or throw an exception
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MinimumStack minStack = new MinimumStack();
+        minStack.push(3);
+        minStack.push(5);
+        minStack.push(2);
+        minStack.push(1);
+
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 1
+
+        minStack.pop();
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 2
+
+        minStack.pop();
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 2
+
+        minStack.push(0);
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 0
+    }
+}
+
+################################
+#####Celebrity Problem##########
+################################
+
+import java.util.Stack;
+
+public class CelebrityProblem {
+    
+    static boolean[][] knows = {
+        {false, false, true, false},
+        {false, false, true, false},
+        {false, false, false, false},
+        {false, false, true, false}
+    };
+
+    static int findCelebrity(int n) {
+        Stack<Integer> stack = new Stack<>();
+        
+        // Push all people onto the stack
+        for (int i = 0; i < n; i++) {
+            stack.push(i);
+        }
+        
+        // While there are more than 1 person in the stack
+        while (stack.size() > 1) {
+            int a = stack.pop();
+            int b = stack.pop();
+            
+            // If a knows b, a is not a celebrity, push b back
+            if (knows[a][b]) {
+                stack.push(b);
+            } 
+            // If a doesn't know b, b is not a celebrity, push a back
+            else {
+                stack.push(a);
+            }
+        }
+        
+        // Potential candidate for being a celebrity
+        int candidate = stack.pop();
+        
+        // Check if the candidate is indeed a celebrity
+        for (int i = 0; i < n; i++) {
+            if (i != candidate && (knows[candidate][i] || !knows[i][candidate])) {
+                return -1; // No celebrity found
+            }
+        }
+        
+        return candidate;
+    }
+
+    public static void main(String[] args) {
+        int n = 4;
+        int celebrity = findCelebrity(n);
+        if (celebrity == -1) {
+            System.out.println("No celebrity found.");
+        } else {
+            System.out.println("Celebrity found at index: " + celebrity);
+        }
+    }
+}
+
+###################################
+########## Tower of Hanoi #########
+###################################
+
+import java.util.Stack;
+
+public class TowerOfHanoi {
+    
+    static void iterativeTowerOfHanoi(int n, char source, char auxiliary, char destination) {
+        // Create three stacks for source, auxiliary, and destination pegs
+        Stack<Integer> sourceStack = new Stack<>();
+        Stack<Integer> auxiliaryStack = new Stack<>();
+        Stack<Integer> destinationStack = new Stack<>();
+        
+        // Initialize source stack with disks
+        for (int i = n; i > 0; i--) {
+            sourceStack.push(i);
+        }
+        
+        // Calculate total number of moves required
+        int totalMoves = (int) Math.pow(2, n) - 1;
+        
+        // If number of disks is even, swap auxiliary and destination pegs
+        if (n % 2 == 0) {
+            char temp = auxiliary;
+            auxiliary = destination;
+            destination = temp;
+        }
+        
+        // Iterate through each move
+        for (int move = 1; move <= totalMoves; move++) {
+            if (move % 3 == 1) {
+                moveDiskBetweenPegs(sourceStack, destinationStack, source, destination);
+            } else if (move % 3 == 2) {
+                moveDiskBetweenPegs(sourceStack, auxiliaryStack, source, auxiliary);
+            } else if (move % 3 == 0) {
+                moveDiskBetweenPegs(auxiliaryStack, destinationStack, auxiliary, destination);
+            }
+        }
+    }
+    
+    static void moveDiskBetweenPegs(Stack<Integer> source, Stack<Integer> destination, char sourcePeg, char destinationPeg) {
+        if (!source.isEmpty() && (destination.isEmpty() || source.peek() < destination.peek())) {
+            int disk = source.pop();
+            destination.push(disk);
+            System.out.println("Move disk " + disk + " from " + sourcePeg + " to " + destinationPeg);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 3; // Number of disks
+        iterativeTowerOfHanoi(n, 'A', 'B', 'C');
+    }
+}
+
+#################################
+######## Stock Span #############
+#################################
+
+import java.util.Stack;
+
+public class StockSpan {
+
+    static int[] calculateSpan(int[] prices) {
+        int n = prices.length;
+        int[] span = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        // Push index of first price to stack
+        stack.push(0);
+        // Span of first day is always 1
+        span[0] = 1;
+
+        for (int i = 1; i < n; i++) {
+            // Pop elements from stack while the price at stack top is less than or equal to the current price
+            while (!stack.isEmpty() && prices[stack.peek()] <= prices[i]) {
+                stack.pop();
+            }
+            // If stack becomes empty, the current price is greater than all previous prices
+            if (stack.isEmpty()) {
+                span[i] = i + 1;
+            } 
+            // Else, the span is the difference between current index and the index at stack top
+            else {
+                span[i] = i - stack.peek();
+            }
+            // Push current index to stack for future comparisons
+            stack.push(i);
+        }
+
+        return span;
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {100, 80, 60, 70, 60, 75, 85};
+        int[] span = calculateSpan(prices);
+        System.out.println("Stock Span for each day:");
+        for (int s : span) {
+            System.out.print(s + " ");
+        }
+    }
+}
+
+#################################
+### Tower of Hanoi Max Height ###
+#################################
+
+import java.util.*;
+
+public class TowerOfHanoi {
+    
+    static int maxTowerHeight(int n, int[] initialPositions) {
+        // Create a map to store the initial positions of disks
+        Map<Integer, Integer> diskPositions = new HashMap<>();
+        for (int i = 0; i < initialPositions.length; i++) {
+            diskPositions.put(i + 1, initialPositions[i]);
+        }
+        
+        // Initialize the maximum height as the height of the tallest tower
+        int maxHeight = 0;
+        for (int i = 0; i < initialPositions.length; i++) {
+            if (initialPositions[i] > maxHeight) {
+                maxHeight = initialPositions[i];
+            }
+        }
+        
+        // Perform the Tower of Hanoi algorithm to move disks
+        Stack<Integer> source = new Stack<>();
+        Stack<Integer> auxiliary = new Stack<>();
+        Stack<Integer> destination = new Stack<>();
+        
+        for (int i = n; i >= 1; i--) {
+            source.push(i);
+        }
+        
+        int totalMoves = (int)Math.pow(2, n) - 1;
+        for (int move = 1; move <= totalMoves; move++) {
+            if (move % 3 == 1) {
+                moveDisk(source, destination, diskPositions);
+            } else if (move % 3 == 2) {
+                moveDisk(source, auxiliary, diskPositions);
+            } else if (move % 3 == 0) {
+                moveDisk(auxiliary, destination, diskPositions);
+            }
+            
+            // Update the maximum height
+            int currentHeight = Math.max(source.size(), Math.max(auxiliary.size(), destination.size()));
+            if (currentHeight > maxHeight) {
+                maxHeight = currentHeight;
+            }
+        }
+        
+        return maxHeight;
+    }
+    
+    static void moveDisk(Stack<Integer> source, Stack<Integer> destination, Map<Integer, Integer> diskPositions) {
+        if (!source.isEmpty() && (destination.isEmpty() || source.peek() < destination.peek())) {
+            int disk = source.pop();
+            int currentHeight = destination.size();
+            int targetHeight = diskPositions.get(disk);
+            while (currentHeight < targetHeight) {
+                destination.push(Integer.MAX_VALUE); // Placeholder for disks smaller than the target disk
+                currentHeight++;
+            }
+            destination.push(disk);
+        } else if (!destination.isEmpty() && (source.isEmpty() || destination.peek() < source.peek())) {
+            int disk = destination.pop();
+            source.push(disk);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 3; // Number of disks
+        int[] initialPositions = {1, 1, 1}; // Initial positions of disks
+        int maxHeight = maxTowerHeight(n, initialPositions);
+        System.out.println("Maximum height reached: " + maxHeight);
+    }
+}
+
+############################
+####Stack Permutation#######
+############################
+
+import java.util.Stack;
+
+public class StackPermutation {
+    
+    static boolean isStackPermutation(int[] original, int[] permutation) {
+        Stack<Integer> stack = new Stack<>();
+        int index = 0;
+        
+        for (int i = 0; i < permutation.length; i++) {
+            // Push elements from the original permutation onto the stack
+            while (stack.isEmpty() || stack.peek() != permutation[i]) {
+                if (index >= original.length) {
+                    return false;
+                }
+                stack.push(original[index]);
+                index++;
+            }
+            // Pop elements from the stack until it matches the current element in the permutation
+            while (!stack.isEmpty() && stack.peek() == permutation[i]) {
+                stack.pop();
+                i++;
+            }
+            // Decrement i to handle the current element in the next iteration of the loop
+            i--;
+        }
+        
+        // If the stack is empty, all elements have been matched successfully
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        int[] original = {1, 2, 3};
+        int[] permutation = {3, 1, 2};
+        System.out.println("Is permutation achievable using stack? " + isStackPermutation(original, permutation));
+    }
+}
+
+#################################
+#### Priority Queue using DLL  ##
+#################################
+
+class Node {
+    int data;
+    int priority;
+    Node prev, next;
+
+    Node(int data, int priority) {
+        this.data = data;
+        this.priority = priority;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+public class PriorityQueryDLL {
+    Node head;
+
+    void insert(int data, int priority) {
+        Node newNode = new Node(data, priority);
+
+        if (head == null) {
+            head = newNode;
+        } else if (priority < head.priority) {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null && current.next.priority <= priority) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            if (current.next != null) {
+                current.next.prev = newNode;
+            }
+            current.next = newNode;
+            newNode.prev = current;
+        }
+    }
+
+    int deleteMin() {
+        if (head == null) {
+            throw new IllegalStateException("PriorityQueryDLL is empty");
+        }
+        int minData = head.data;
+        head = head.next;
+        if (head != null) {
+            head.prev = null;
+        }
+        return minData;
+    }
+
+    void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.println("Data: " + current.data + ", Priority: " + current.priority);
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        PriorityQueryDLL priorityQuery = new PriorityQueryDLL();
+        priorityQuery.insert(3, 2);
+        priorityQuery.insert(5, 1);
+        priorityQuery.insert(7, 3);
+        priorityQuery.insert(9, 2);
+
+        System.out.println("Priority Query DLL:");
+        priorityQuery.printList();
+
+        System.out.println("Minimum element removed: " + priorityQuery.deleteMin());
+        System.out.println("Priority Query DLL after deleting minimum:");
+        priorityQuery.printList();
+    }
+}
+
+####################################
+###Sort Queue without Extra Space###
+####################################
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class SortQueueWithoutExtraSpace {
+
+    static void sortQueue(Queue<Integer> queue) {
+        int n = queue.size();
+        
+        // Iterate through the queue n times
+        for (int i = 0; i < n; i++) {
+            // Find the minimum element in the current iteration
+            int minIndex = findMinIndex(queue, n - i);
+            
+            // Move the minimum element to the rear
+            for (int j = 0; j < n; j++) {
+                int current = queue.poll();
+                if (j != minIndex) {
+                    queue.offer(current);
+                }
+            }
+            queue.offer(queue.poll()); // Move the minimum element to the rear
+        }
+    }
+
+    // Find the index of the minimum element in the first n elements of the queue
+    static int findMinIndex(Queue<Integer> queue, int n) {
+        int minIndex = -1;
+        int minValue = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int current = queue.poll();
+            if (current < minValue) {
+                minIndex = i;
+                minValue = current;
+            }
+            queue.offer(current);
+        }
+        return minIndex;
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(30);
+        queue.offer(11);
+        queue.offer(15);
+        queue.offer(4);
+        queue.offer(22);
+
+        System.out.println("Original Queue: " + queue);
+        sortQueue(queue);
+        System.out.println("Sorted Queue: " + queue);
+    }
+}
+
+###############################
+####Max Sliding Window ########
+###############################
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class MaxSlidingWindow {
+
+    static int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || k <= 0) {
+            return new int[0];
+        }
+
+        int n = nums.length;
+        int[] result = new int[n - k + 1];
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < n; i++) {
+            // Remove elements outside of the window
+            while (!deque.isEmpty() && deque.peek() < i - k + 1) {
+                deque.poll();
+            }
+            // Remove smaller elements in the current window as they won't be the maximum
+            while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+            // Add the current index to the deque
+            deque.offer(i);
+            // Add the maximum element in the current window to the result array
+            if (i >= k - 1) {
+                result[i - k + 1] = nums[deque.peek()];
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 3, -1, -3, 5, 3, 6, 7};
+        int k = 3;
+        int[] result = maxSlidingWindow(nums, k);
+        System.out.println("Maximum elements in sliding windows of size " + k + ":");
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+################################
+#Recover the binary search tree#
+################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class RecoverBST {
+
+    TreeNode firstNode = null;
+    TreeNode secondNode = null;
+    TreeNode prevNode = new TreeNode(Integer.MIN_VALUE);
+
+    public void recoverTree(TreeNode root) {
+        // Traverse the BST in-order to find the misplaced nodes
+        inorderTraversal(root);
+
+        // Swap the values of the misplaced nodes
+        int temp = firstNode.val;
+        firstNode.val = secondNode.val;
+        secondNode.val = temp;
+    }
+
+    private void inorderTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorderTraversal(root.left);
+
+        // Check if the current node violates the BST property
+        if (firstNode == null && prevNode.val >= root.val) {
+            firstNode = prevNode;
+        }
+        if (firstNode != null && prevNode.val >= root.val) {
+            secondNode = root;
+        }
+        prevNode = root;
+
+        inorderTraversal(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(4);
+        root.right.left = new TreeNode(2);
+
+        RecoverBST recoverBST = new RecoverBST();
+        recoverBST.recoverTree(root);
+    }
+}
+
+
+####################################
+# Top Bottom Right Left View #######
+####################################
+
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class TreeViews {
+
+    // Helper class to store node and its horizontal distance
+    static class QueueNode {
+        TreeNode node;
+        int hd;
+
+        QueueNode(TreeNode node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    // Top view of a binary tree
+    static List<Integer> topView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Map<Integer, Integer> map = new TreeMap<>();
+        Queue<QueueNode> queue = new LinkedList<>();
+        queue.offer(new QueueNode(root, 0));
+
+        while (!queue.isEmpty()) {
+            QueueNode qNode = queue.poll();
+            TreeNode node = qNode.node;
+            int hd = qNode.hd;
+
+            if (!map.containsKey(hd)) {
+                map.put(hd, node.val);
+            }
+
+            if (node.left != null) {
+                queue.offer(new QueueNode(node.left, hd - 1));
+            }
+            if (node.right != null) {
+                queue.offer(new QueueNode(node.right, hd + 1));
+            }
+        }
+
+        for (int val : map.values()) {
+            result.add(val);
+        }
+        return result;
+    }
+
+    // Bottom view of a binary tree
+    static List<Integer> bottomView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Map<Integer, Integer> map = new TreeMap<>();
+        Queue<QueueNode> queue = new LinkedList<>();
+        queue.offer(new QueueNode(root, 0));
+
+        while (!queue.isEmpty()) {
+            QueueNode qNode = queue.poll();
+            TreeNode node = qNode.node;
+            int hd = qNode.hd;
+
+            map.put(hd, node.val);
+
+            if (node.left != null) {
+                queue.offer(new QueueNode(node.left, hd - 1));
+            }
+            if (node.right != null) {
+                queue.offer(new QueueNode(node.right, hd + 1));
+            }
+        }
+
+        for (int val : map.values()) {
+            result.add(val);
+        }
+        return result;
+    }
+
+    // Left view of a binary tree
+    static List<Integer> leftView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (i == 0) {
+                    result.add(node.val); // First node in each level
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // Right view of a binary tree
+    static List<Integer> rightView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (i == size - 1) {
+                    result.add(node.val); // Last node in each level
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.left.right.right = new TreeNode(5);
+        root.left.right.right.right = new TreeNode(6);
+
+        System.out.println("Top View: " + topView(root));
+        System.out.println("Bottom View: " + bottomView(root));
+        System.out.println("Left View: " + leftView(root));
+        System.out.println("Right View: " + rightView(root));
+    }
+}
+
+##############################
+## Vertical Order Traversal###
+##############################
+
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class VerticalOrderTraversal {
+
+    static class QueueNode {
+        TreeNode node;
+        int hd; // Horizontal distance
+
+        QueueNode(TreeNode node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    static List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        Queue<QueueNode> queue = new LinkedList<>();
+        queue.offer(new QueueNode(root, 0));
+
+        int minHd = 0, maxHd = 0;
+
+        while (!queue.isEmpty()) {
+            QueueNode qNode = queue.poll();
+            TreeNode node = qNode.node;
+            int hd = qNode.hd;
+
+            // Update minHd and maxHd
+            minHd = Math.min(minHd, hd);
+            maxHd = Math.max(maxHd, hd);
+
+            // Add node to the map
+            if (!map.containsKey(hd)) {
+                map.put(hd, new ArrayList<>());
+            }
+            map.get(hd).add(node.val);
+
+            // Add left child to the queue
+            if (node.left != null) {
+                queue.offer(new QueueNode(node.left, hd - 1));
+            }
+            // Add right child to the queue
+            if (node.right != null) {
+                queue.offer(new QueueNode(node.right, hd + 1));
+            }
+        }
+
+        // Construct the result list from the map
+        for (int i = minHd; i <= maxHd; i++) {
+            if (map.containsKey(i)) {
+                result.add(map.get(i));
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        List<List<Integer>> result = verticalOrder(root);
+        System.out.println("Vertical Order Traversal:");
+        for (List<Integer> list : result) {
+            System.out.println(list);
+        }
+    }
+}
+
+################################
+#### Boundary Traversal ########
+################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class BoundaryTraversal {
+
+    static void boundaryTraversal(TreeNode root) {
+        if (root == null) return;
+
+        System.out.print(root.val + " ");
+
+        // Print the left boundary (excluding the leaf node)
+        printLeftBoundary(root.left);
+
+        // Print the leaf nodes
+        printLeaves(root.left);
+        printLeaves(root.right);
+
+        // Print the right boundary (excluding the leaf node)
+        printRightBoundary(root.right);
+    }
+
+    static void printLeftBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        System.out.print(node.val + " ");
+
+        if (node.left != null) {
+            printLeftBoundary(node.left);
+        } else {
+            printLeftBoundary(node.right);
+        }
+    }
+
+    static void printRightBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        if (node.right != null) {
+            printRightBoundary(node.right);
+        } else {
+            printRightBoundary(node.left);
+        }
+
+        System.out.print(node.val + " ");
+    }
+
+    static void printLeaves(TreeNode node) {
+        if (node == null) return;
+
+        printLeaves(node.left);
+
+        if (node.left == null && node.right == null) {
+            System.out.print(node.val + " ");
+        }
+
+        printLeaves(node.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(20);
+        root.left = new TreeNode(8);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(12);
+        root.left.right.left = new TreeNode(10);
+        root.left.right.right = new TreeNode(14);
+        root.right = new TreeNode(22);
+        root.right.right = new TreeNode(25);
+
+        System.out.println("Boundary Traversal:");
+        boundaryTraversal(root);
+    }
+}
+
+#################################
+#### Boundary Traversal Clock ###
+#################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class ClockwiseBoundaryTraversal {
+
+    static void clockwiseBoundaryTraversal(TreeNode root) {
+        if (root == null) return;
+
+        System.out.print(root.val + " ");
+
+        // Print the right boundary (excluding the root and leaf nodes)
+        printRightBoundary(root.right);
+
+        // Print the leaf nodes (excluding the root)
+        printLeaves(root.right);
+        printLeaves(root.left);
+
+        // Print the left boundary (excluding the root and leaf nodes)
+        printLeftBoundary(root.left);
+    }
+
+    static void printRightBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        if (node.right != null) {
+            printRightBoundary(node.right);
+        } else {
+            printRightBoundary(node.left);
+        }
+
+        System.out.print(node.val + " ");
+    }
+
+    static void printLeftBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        System.out.print(node.val + " ");
+
+        if (node.left != null) {
+            printLeftBoundary(node.left);
+        } else {
+            printLeftBoundary(node.right);
+        }
+    }
+
+    static void printLeaves(TreeNode node) {
+        if (node == null) return;
+
+        printLeaves(node.right);
+
+        if (node.left == null && node.right == null) {
+            System.out.print(node.val + " ");
+        }
+
+        printLeaves(node.left);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(20);
+        root.left = new TreeNode(8);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(12);
+        root.left.right.left = new TreeNode(10);
+        root.left.right.right = new TreeNode(14);
+        root.right = new TreeNode(22);
+        root.right.right = new TreeNode(25);
+
+        System.out.println("Clockwise Boundary Traversal:");
+        clockwiseBoundaryTraversal(root);
+    }
+}
+
+#####################################
+##### PreOrder Traversal ############
+#####################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class PreorderTraversal {
+
+    static void preorderTraversal(TreeNode root) {
+        if (root == null) return;
+
+        System.out.print(root.val + " ");
+        preorderTraversal(root.left);
+        preorderTraversal(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        System.out.println("Preorder Traversal:");
+        preorderTraversal(root);
+    }
+}
+
+
+###################################
+########### Inorder Traversal ####
+###################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class InorderTraversal {
+
+    static void inorderTraversal(TreeNode root) {
+        if (root == null) return;
+
+        inorderTraversal(root.left);
+        System.out.print(root.val + " ");
+        inorderTraversal(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        System.out.println("Inorder Traversal:");
+        inorderTraversal(root);
+    }
+}
+
+###############################
+##### Post Order Traversal ####
+###############################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class PostorderTraversal {
+
+    static void postorderTraversal(TreeNode root) {
+        if (root == null) return;
+
+        postorderTraversal(root.left);
+        postorderTraversal(root.right);
+        System.out.print(root.val + " ");
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        System.out.println("Postorder Traversal:");
+        postorderTraversal(root);
+    }
+}
+
+###################################
+####   Breadth First Search BFS ###
+###################################
+
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class BFS {
+
+    static void bfs(TreeNode root) {
+        if (root == null) return;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode node = queue.poll();
+                System.out.print(node.val + " ");
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        System.out.println("BFS Traversal:");
+        bfs(root);
+    }
+}
+
+##################################
+####Depth First Search DFS   #####
+##################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class DFS {
+
+    static void dfs(TreeNode root) {
+        if (root == null) return;
+
+        System.out.print(root.val + " ");
+
+        dfs(root.left);
+        dfs(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        System.out.println("DFS Traversal:");
+        dfs(root);
+    }
+}
+
+##################################
+####### Dahls Algorithm   ########
+##################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode parent; // Pointer to the parent node
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class DahlTraversal {
+
+    static void dahlTraversal(TreeNode root) {
+        TreeNode current = root;
+
+        while (current != null) {
+            if (current.left != null && current.left.parent != current) {
+                current = current.left;
+            } else if (current.right != null && current.right.parent != current) {
+                current = current.right;
+            } else {
+                System.out.print(current.val + " ");
+                current = current.parent;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.parent = root;
+        root.right.parent = root;
+
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.left.parent = root.left;
+        root.left.right.parent = root.left;
+
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+        root.right.left.parent = root.right;
+        root.right.right.parent = root.right;
+
+        System.out.println("Dahl's Traversal:");
+        dahlTraversal(root);
+    }
+}
+
+#################################
+##### Bellman Ford Edges ########
+#################################
+
+import java.util.*;
+
+public class BellmanFord {
+
+    static class Edge {
+        int source, destination, weight;
+
+        Edge(int source, int destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
+        }
+    }
+
+    static void bellmanFord(int V, int E, int source, List<Edge> edges) {
+        int[] distance = new int[V];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
+
+        // Relax all edges V-1 times
+        for (int i = 1; i < V; ++i) {
+            for (Edge edge : edges) {
+                if (distance[edge.source] != Integer.MAX_VALUE && distance[edge.source] + edge.weight < distance[edge.destination]) {
+                    distance[edge.destination] = distance[edge.source] + edge.weight;
+                }
+            }
+        }
+
+        // Check for negative-weight cycles
+        for (Edge edge : edges) {
+            if (distance[edge.source] != Integer.MAX_VALUE && distance[edge.source] + edge.weight < distance[edge.destination]) {
+                System.out.println("Graph contains negative-weight cycle");
+                return;
+            }
+        }
+
+        // Print the shortest distances
+        System.out.println("Shortest distances from source " + source + ":");
+        for (int i = 0; i < V; ++i) {
+            System.out.println("Vertex " + i + ": " + distance[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        int V = 5; // Number of vertices
+        int E = 8; // Number of edges
+        int source = 0; // Source vertex
+
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(0, 1, -1));
+        edges.add(new Edge(0, 2, 4));
+        edges.add(new Edge(1, 2, 3));
+        edges.add(new Edge(1, 3, 2));
+        edges.add(new Edge(1, 4, 2));
+        edges.add(new Edge(3, 2, 5));
+        edges.add(new Edge(3, 1, 1));
+        edges.add(new Edge(4, 3, -3));
+
+        bellmanFord(V, E, source, edges);
+    }
+}
+
+####################################
+# Bellman Ford Adjacency Matrix ####
+####################################
+
+import java.util.Arrays;
+
+public class BellmanFordMatrix {
+
+    static void bellmanFord(int[][] graph, int source) {
+        int V = graph.length;
+        int[] distance = new int[V];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
+
+        // Relax all edges V-1 times
+        for (int i = 1; i < V; ++i) {
+            for (int u = 0; u < V; ++u) {
+                for (int v = 0; v < V; ++v) {
+                    if (graph[u][v] != 0 && distance[u] != Integer.MAX_VALUE && distance[u] + graph[u][v] < distance[v]) {
+                        distance[v] = distance[u] + graph[u][v];
+                    }
+                }
+            }
+        }
+
+        // Check for negative-weight cycles
+        for (int u = 0; u < V; ++u) {
+            for (int v = 0; v < V; ++v) {
+                if (graph[u][v] != 0 && distance[u] != Integer.MAX_VALUE && distance[u] + graph[u][v] < distance[v]) {
+                    System.out.println("Graph contains negative-weight cycle");
+                    return;
+                }
+            }
+        }
+
+        // Print the shortest distances
+        System.out.println("Shortest distances from source " + source + ":");
+        for (int i = 0; i < V; ++i) {
+            System.out.println("Vertex " + i + ": " + distance[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] graph = {
+            {0, -1, 4, 0, 0},
+            {0, 0, 3, 2, 2},
+            {0, 0, 0, 0, 0},
+            {0, 1, 5, 0, 0},
+            {0, 0, 0, -3, 0}
+        };
+        int source = 0;
+
+        bellmanFord(graph, source);
+    }
+}
+
+###################################
+##### Toplogical Sort       #######
+###################################
+
+import java.util.*;
+
+public class TopologicalSort {
+
+    static void dfs(List<Integer>[] graph, int vertex, boolean[] visited, Stack<Integer> stack) {
+        visited[vertex] = true;
+
+        for (int neighbor : graph[vertex]) {
+            if (!visited[neighbor]) {
+                dfs(graph, neighbor, visited, stack);
+            }
+        }
+
+        stack.push(vertex);
+    }
+
+    static void topologicalSort(List<Integer>[] graph, int V) {
+        boolean[] visited = new boolean[V];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < V; ++i) {
+            if (!visited[i]) {
+                dfs(graph, i, visited, stack);
+            }
+        }
+
+        System.out.println("Topological ordering:");
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop() + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int V = 6; // Number of vertices
+        List<Integer>[] graph = new ArrayList[V];
+        for (int i = 0; i < V; ++i) {
+            graph[i] = new ArrayList<>();
+        }
+
+        // Add directed edges
+        graph[5].add(2);
+        graph[5].add(0);
+        graph[4].add(0);
+        graph[4].add(1);
+        graph[2].add(3);
+        graph[3].add(1);
+
+        topologicalSort(graph, V);
+    }
+}
+
+#####################################
+##### Heap Sort Algorithm ###########
+#####################################
+
+public class HeapSort {
+
+    static void heapSort(int[] arr) {
+        int n = arr.length;
+
+        // Build max heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        // Extract elements from heap one by one
+        for (int i = n - 1; i > 0; i--) {
+            // Move current root to end
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            // Call max heapify on the reduced heap
+            heapify(arr, i, 0);
+        }
+    }
+
+    static void heapify(int[] arr, int n, int i) {
+        int largest = i; // Initialize largest as root
+        int left = 2 * i + 1; // Left child
+        int right = 2 * i + 2; // Right child
+
+        // If left child is larger than root
+        if (left < n && arr[left] > arr[largest]) {
+            largest = left;
+        }
+
+        // If right child is larger than largest so far
+        if (right < n && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        // If largest is not root
+        if (largest != i) {
+            int temp = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = temp;
+
+            // Recursively heapify the affected subtree
+            heapify(arr, n, largest);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 11, 13, 5, 6, 7};
+        int n = arr.length;
+
+        System.out.println("Original array:");
+        printArray(arr);
+
+        heapSort(arr);
+
+        System.out.println("\nSorted array:");
+        printArray(arr);
+    }
+
+    static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+##################################
+###### Binomial Tree     #########
+##################################
+
+public class BinomialTree {
+    int key;
+    int degree;
+    BinomialTree child;
+    BinomialTree sibling;
+    BinomialTree parent;
+
+    public BinomialTree(int key) {
+        this.key = key;
+        this.degree = 0;
+        this.child = null;
+        this.sibling = null;
+        this.parent = null;
+    }
+
+    // Merge two binomial trees of the same order
+    public void merge(BinomialTree tree) {
+        if (this.key > tree.key) {
+            // Make 'tree' the leftmost child of 'this'
+            tree.sibling = this.child;
+            this.child = tree;
+            this.degree++;
+            tree.parent = this;
+        } else {
+            // Make 'this' the leftmost child of 'tree'
+            this.sibling = tree.child;
+            tree.child = this;
+            tree.degree++;
+            this.parent = tree;
+        }
+    }
+
+    // Print the keys of nodes in the binomial tree
+    public void printKeys() {
+        BinomialTree current = this;
+        while (current != null) {
+            System.out.print(current.key + " ");
+            if (current.child != null) {
+                current.child.printKeys();
+            }
+            current = current.sibling;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        BinomialTree root1 = new BinomialTree(1);
+        BinomialTree root2 = new BinomialTree(2);
+
+        root1.merge(root2);
+
+        BinomialTree root3 = new BinomialTree(3);
+        BinomialTree root4 = new BinomialTree(4);
+
+        root3.merge(root4);
+
+        root1.merge(root3);
+
+        System.out.println("Keys of nodes in the binomial tree:");
+        root1.printKeys();
+    }
+}
+
+###################################
+#### K - Ary Heap #################
+###################################
+
+public class KaryHeap {
+    private int[] heapArray;
+    private int capacity;
+    private int size;
+    private int k;
+
+    public KaryHeap(int capacity, int k) {
+        this.capacity = capacity;
+        this.heapArray = new int[capacity];
+        this.size = 0;
+        this.k = k;
+    }
+
+    public void insert(int value) {
+        if (size == capacity) {
+            System.out.println("Heap is full, cannot insert more elements.");
+            return;
+        }
+
+        heapArray[size] = value;
+        size++;
+        heapifyUp(size - 1);
+    }
+
+    public int extractMax() {
+        if (size == 0) {
+            System.out.println("Heap is empty, cannot extract max element.");
+            return -1;
+        }
+
+        int max = heapArray[0];
+        heapArray[0] = heapArray[size - 1];
+        size--;
+        heapifyDown(0);
+        return max;
+    }
+
+    private void heapifyUp(int index) {
+        int parent = (index - 1) / k;
+        while (index > 0 && heapArray[index] > heapArray[parent]) {
+            swap(index, parent);
+            index = parent;
+            parent = (index - 1) / k;
+        }
+    }
+
+    private void heapifyDown(int index) {
+        int maxChildIndex = getMaxChildIndex(index);
+        while (maxChildIndex != -1 && heapArray[maxChildIndex] > heapArray[index]) {
+            swap(index, maxChildIndex);
+            index = maxChildIndex;
+            maxChildIndex = getMaxChildIndex(index);
+        }
+    }
+
+    private int getMaxChildIndex(int index) {
+        int maxChildIndex = -1;
+        int startChildIndex = k * index + 1;
+        int endChildIndex = Math.min(startChildIndex + k, size);
+        for (int i = startChildIndex; i < endChildIndex; i++) {
+            if (heapArray[i] > heapArray[index]) {
+                if (maxChildIndex == -1 || heapArray[i] > heapArray[maxChildIndex]) {
+                    maxChildIndex = i;
+                }
+            }
+        }
+        return maxChildIndex;
+    }
+
+    private void swap(int i, int j) {
+        int temp = heapArray[i];
+        heapArray[i] = heapArray[j];
+        heapArray[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        KaryHeap heap = new KaryHeap(10, 3); // Capacity: 10, K: 3
+        heap.insert(5);
+        heap.insert(10);
+        heap.insert(7);
+        heap.insert(1);
+        heap.insert(3);
+        heap.insert(8);
+
+        System.out.println("Max element extracted: " + heap.extractMax());
+        System.out.println("Max element extracted: " + heap.extractMax());
+        System.out.println("Max element extracted: " + heap.extractMax());
+    }
+}
+
+#################################
+####### Winner Tree #############
+#################################
+
+public class WinnerTree {
+    private int[] players; // Array to store player scores
+    private int[] tree; // Winner tree array
+    private int n; // Number of players
+
+    public WinnerTree(int[] players) {
+        this.players = players;
+        this.n = players.length;
+        this.tree = new int[2 * n];
+        buildTree();
+    }
+
+    private void buildTree() {
+        // Fill the initial leaves with player indices
+        for (int i = 0; i < n; i++) {
+            tree[n + i] = i;
+        }
+
+        // Build the winner tree bottom-up
+        for (int i = n - 1; i > 0; i--) {
+            tree[i] = players[tree[2 * i]] >= players[tree[2 * i + 1]] ? tree[2 * i] : tree[2 * i + 1];
+        }
+    }
+
+    public int getWinnerIndex() {
+        return tree[1]; // Root of the winner tree contains the index of the winner
+    }
+
+    public void updatePlayerScore(int index, int newScore) {
+        players[index] = newScore;
+        updateTree(index);
+    }
+
+    private void updateTree(int index) {
+        index += n; // Convert player index to leaf index
+        while (index > 1) {
+            index /= 2;
+            tree[index] = players[tree[2 * index]] >= players[tree[2 * index + 1]] ? tree[2 * index] : tree[2 * index + 1];
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] players = {10, 15, 8, 20, 18, 12};
+        WinnerTree winnerTree = new WinnerTree(players);
+
+        System.out.println("Winner index: " + winnerTree.getWinnerIndex());
+
+        // Update player score and recompute winner
+        winnerTree.updatePlayerScore(2, 25);
+        System.out.println("Updated winner index: " + winnerTree.getWinnerIndex());
+    }
+}
+
+######################################
+######## Hash Map to Tree Map#########
+######################################
+
+import java.util.*;
+
+public class HashMapToTreeMap {
+    public static void main(String[] args) {
+        // Create a HashMap
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "Apple");
+        hashMap.put(1, "Banana");
+        hashMap.put(2, "Orange");
+        hashMap.put(4, "Grapes");
+
+        // Convert HashMap to TreeMap
+        TreeMap<Integer, String> treeMap = new TreeMap<>(hashMap);
+
+        // Display the TreeMap
+        System.out.println("TreeMap (Natural Order): " + treeMap);
+
+        // Alternatively, you can create a TreeMap with a custom Comparator
+        TreeMap<Integer, String> customTreeMap = new TreeMap<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                // Reverse order comparator
+                return o2.compareTo(o1);
+            }
+        });
+        customTreeMap.putAll(hashMap);
+
+        // Display the custom TreeMap
+        System.out.println("TreeMap (Custom Order): " + customTreeMap);
+    }
+}
+
+
+#################################
+######### Hash Set      #########
+#################################
+
+import java.util.HashSet;
+import java.util.Set;
+public class HashSetExample {
+ public static void main(String[] args) {
+ // Creating a HashSet
+ Set<String> hashSet = new HashSet<>();
+ // Adding elements to the HashSet
+ hashSet.add("Apple");
+ hashSet.add("Banana");
+ hashSet.add("Orange");
+ // Displaying the elements of the HashSet
+ System.out.println("HashSet elements: " + hashSet);
+ }
+}
+
+
+###############################
+####### Linked Hash Set  ######
+###############################
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+public class Main {
+ public static void main(String[] args) {
+ // Creating a LinkedHashSet
+ Set<String> linkedHashSet = new LinkedHashSet<>();
+ // Adding elements to the LinkedHashSet
+ linkedHashSet.add("Apple");
+ linkedHashSet.add("Banana");
+ linkedHashSet.add("Orange");
+ // Displaying the elements of the LinkedHashSet
+ System.out.println("LinkedHashSet elements: " + linkedHashSet);
+ }
+}
+
+######################################
+############## Tree Set ##############
+######################################
+ import java.util.Set;
+import java.util.TreeSet;
+public class Main {
+ public static void main(String[] args) {
+ // Creating a TreeSet
+ Set<String> treeSet = new TreeSet<>();
+ // Adding elements to the TreeSet
+ treeSet.add("Apple");
+ treeSet.add("Banana");
+ treeSet.add("Orange");
+ // Displaying the elements of the TreeSet
+ System.out.println("TreeSet elements: " + treeSet);
+ }
+}
+
+
+##########################################
+######## Distributing Items ##############
+##########################################
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Main {
+    static boolean checkCount(int arr[], int n, int k) {
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        // Maintain a hash
+        for (int i = 0; i < n; i++) {
+            if (!hash.containsKey(arr[i]))
+                hash.put(arr[i], 0);
+            hash.put(arr[i], hash.get(arr[i]) + 1);
+        }
+        // Check for each value in hash
+        for (Map.Entry<Integer, Integer> entry : hash.entrySet()) {
+            if (entry.getValue() > 2 * k)
+                return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 2, 3, 1};
+        int n = arr.length;
+        int k = 2;
+        System.out.println(checkCount(arr, n, k));
+    }
+}
+
+
+################################
+######## Fibonacci #############
+################################
+
+public class Fibonacci {
+    public static void main(String[] args) {
+        int n = 10; // Change the value of n as needed
+
+        System.out.println("Fibonacci sequence up to " + n + ":");
+        for (int i = 0; i < n; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+    }
+
+    public static int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+
+#################################
+### Longest Common Subsequence###
+#################################
+
+public class LongestCommonSubsequence {
+    public static void main(String[] args) {
+        String X = "AGGTAB";
+        String Y = "GXTXAYB";
+
+        int m = X.length();
+        int n = Y.length();
+
+        System.out.println("Length of LCS is " + lcs(X, Y, m, n));
+    }
+
+    // Returns length of LCS for X[0..m-1], Y[0..n-1]
+    static int lcs(String X, String Y, int m, int n) {
+        int[][] L = new int[m + 1][n + 1];
+
+        // Building the L[m+1][n+1] table in a bottom-up manner
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0) {
+                    L[i][j] = 0;
+                } else if (X.charAt(i - 1) == Y.charAt(j - 1)) {
+                    L[i][j] = L[i - 1][j - 1] + 1;
+                } else {
+                    L[i][j] = Math.max(L[i - 1][j], L[i][j - 1]);
+                }
+            }
+        }
+
+        return L[m][n];
+    }
+}
+
+###################################
+# Longest Increasing Subsequence ##
+###################################
+
+import java.util.Arrays;
+
+public class LongestIncreasingSubsequence {
+    public static void main(String[] args) {
+        int[] nums = {10, 22, 9, 33, 21, 50, 41, 60};
+        System.out.println("Length of Longest Increasing Subsequence: " + lengthOfLIS(nums));
+    }
+
+    public static int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+
+        int max = 0;
+        for (int length : dp) {
+            max = Math.max(max, length);
+        }
+
+        return max;
+    }
+}
+
+######################################
+##### Longest Bitonic Subsequence ####
+######################################
+
+public class LongestBitonicSubsequence {
+    public static void main(String[] args) {
+        int[] nums = {1, 11, 2, 10, 4, 5, 2, 1};
+        System.out.println("Length of Longest Bitonic Subsequence: " + longestBitonicSubsequence(nums));
+    }
+
+    public static int longestBitonicSubsequence(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+
+        // Calculate the longest increasing subsequence (LIS) from left to right
+        int[] lis = new int[n];
+        for (int i = 0; i < n; i++) {
+            lis[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    lis[i] = Math.max(lis[i], lis[j] + 1);
+                }
+            }
+        }
+
+        // Calculate the longest decreasing subsequence (LDS) from right to left
+        int[] lds = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            lds[i] = 1;
+            for (int j = n - 1; j > i; j--) {
+                if (nums[i] > nums[j]) {
+                    lds[i] = Math.max(lds[i], lds[j] + 1);
+                }
+            }
+        }
+
+        // Calculate the length of the longest bitonic subsequence
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, lis[i] + lds[i] - 1);
+        }
+
+        return max;
+    }
+}
+
+#######################################
+#### Longest Palindromic Subsequence ##
+#######################################
+
+public class LongestPalindromicSubsequence {
+    public static void main(String[] args) {
+        String s = "bbbab";
+        System.out.println("Length of Longest Palindromic Subsequence: " + longestPalindromeSubseq(s));
+    }
+
+    public static int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        if (n == 0) {
+            return 0;
+        }
+
+        // Create a 2D array to store the lengths of LPS for substrings
+        int[][] dp = new int[n][n];
+
+        // Base case: LPS length is 1 for single characters
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = 1;
+        }
+
+        // Fill the dp array in a bottom-up manner
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j - 1] + 2; // Characters match, increment length by 2
+                } else {
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]); // Characters don't match, take the maximum of left or bottom cell
+                }
+            }
+        }
+
+        // The length of the LPS for the entire string is stored in dp[0][n-1]
+        return dp[0][n - 1];
+    }
+}
+
+###################################
+######### Subset Problem ##########
+###################################
+
+public class SubsetSum {
+    public static void main(String[] args) {
+        int[] set = {3, 34, 4, 12, 5, 2};
+        int sum = 9;
+        System.out.println("Subset with sum " + sum + " exists: " + hasSubsetSum(set, sum));
+    }
+
+    public static boolean hasSubsetSum(int[] set, int sum) {
+        int n = set.length;
+        boolean[][] dp = new boolean[n + 1][sum + 1];
+
+        // Base case: if sum is 0, subset with sum 0 exists for any set
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = true;
+        }
+
+        // Fill the dp array using bottom-up dynamic programming
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= sum; j++) {
+                if (set[i - 1] <= j) {
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - set[i - 1]];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[n][sum];
+    }
+}
+
+##################################
+####### 0-1 Knapsack #############
+##################################
+
+public class Knapsack {
+    public static void main(String[] args) {
+        int[] values = {60, 100, 120};
+        int[] weights = {10, 20, 30};
+        int capacity = 50;
+
+        System.out.println("Maximum value: " + knapsack(values, weights, capacity));
+    }
+
+    public static int knapsack(int[] values, int[] weights, int capacity) {
+        int n = values.length;
+        int[][] dp = new int[n + 1][capacity + 1];
+
+        // Fill the dp array using bottom-up dynamic programming
+        for (int i = 0; i <= n; i++) {
+            for (int w = 0; w <= capacity; w++) {
+                if (i == 0 || w == 0) {
+                    dp[i][w] = 0; // Base case: no items or capacity is 0
+                } else if (weights[i - 1] <= w) {
+                    // If the current item can be included, take the maximum of including and excluding it
+                    dp[i][w] = Math.max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);
+                } else {
+                    // If the current item cannot be included, exclude it
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+
+        return dp[n][capacity];
+    }
+}
+
+####################################
+###### Travelling Salesman #########
+####################################
+
+import java.util.Arrays;
+
+public class TravellingSalesman {
+    public static void main(String[] args) {
+        int[][] distances = {
+                {0, 10, 15, 20},
+                {10, 0, 35, 25},
+                {15, 35, 0, 30},
+                {20, 25, 30, 0}
+        };
+
+        int n = distances.length;
+        System.out.println("Minimum cost: " + tsp(distances, n));
+    }
+
+    public static int tsp(int[][] distances, int n) {
+        int[][] dp = new int[n][1 << n];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+        return tspHelper(distances, n, 0, 1, dp);
+    }
+
+    public static int tspHelper(int[][] distances, int n, int current, int mask, int[][] dp) {
+        if (mask == (1 << n) - 1) { // All cities visited
+            return distances[current][0];
+        }
+        if (dp[current][mask] != -1) {
+            return dp[current][mask];
+        }
+
+        int minCost = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            if ((mask & (1 << i)) == 0) { // City i not visited yet
+                int newMask = mask | (1 << i);
+                int cost = distances[current][i] + tspHelper(distances, n, i, newMask, dp);
+                minCost = Math.min(minCost, cost);
+            }
+        }
+        dp[current][mask] = minCost;
+        return minCost;
+    }
+}
+
+###################################
+######### Coin Change   ###########
+###################################
+
+import java.util.Arrays;
+
+public class CoinChange {
+    static int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+
+    public static void main(String[] args) {
+        int[] coins = {1, 2, 5};
+        int amount = 11;
+        System.out.println("Minimum number of coins required: " + coinChange(coins, amount));
+    }
+}
+
+############################################
+### Shortest Common Supersequence ##########
+############################################
+
+public class ShortestCommonSupersequence {
+    static int shortestCommonSupersequence(String str1, String str2) {
+        int m = str1.length();
+        int n = str2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0 || j == 0)
+                    dp[i][j] = i + j;
+                else if (str1.charAt(i - 1) == str2.charAt(j - 1))
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                else
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    public static void main(String[] args) {
+        String str1 = "AGGTAB";
+        String str2 = "GXTXAYB";
+        System.out.println("Length of the shortest common supersequence: " + shortestCommonSupersequence(str1, str2));
+    }
+}
+
+#######################################
+####### Levenshtein Distance ##########
+#######################################
+
+public class LevenshteinDistance {
+    static int levenshteinDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                if (i == 0)
+                    dp[i][j] = j;
+                else if (j == 0)
+                    dp[i][j] = i;
+                else if (word1.charAt(i - 1) == word2.charAt(j - 1))
+                    dp[i][j] = dp[i - 1][j - 1];
+                else
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i][j - 1], dp[i - 1][j]));
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    public static void main(String[] args) {
+        String word1 = "kitten";
+        String word2 = "sitting";
+        System.out.println("Levenshtein Distance between \"" + word1 + "\" and \"" + word2 + "\" is: " + levenshteinDistance(word1, word2));
+    }
+}
+ 
+#######################################
+###### Rod Cutting Problem ############
+#######################################
+
+public class RodCutting {
+    static int rodCutting(int[] prices, int n) {
+        int[] dp = new int[n + 1];
+
+        for (int i = 1; i <= n; i++) {
+            int maxPrice = Integer.MIN_VALUE;
+            for (int j = 1; j <= i; j++) {
+                maxPrice = Math.max(maxPrice, prices[j - 1] + dp[i - j]);
+            }
+            dp[i] = maxPrice;
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {1, 5, 8, 9, 10, 17, 17, 20};
+        int length = 8; // Length of the rod
+        System.out.println("Maximum obtainable value: " + rodCutting(prices, length));
+    }
+}
+
+##################################
+#### Pattern Matching ############
+##################################
+
+public class WildcardPatternMatching {
+    static boolean isMatch(String s, String p) {
+        int m = s.length();
+        int n = p.length();
+        
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        
+        dp[0][0] = true;
+        
+        for (int j = 1; j <= n; j++) {
+            if (p.charAt(j - 1) == '*') {
+                dp[0][j] = dp[0][j - 1];
+            }
+        }
+        
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p.charAt(j - 1) == '*') {
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                }
+            }
+        }
+        
+        return dp[m][n];
+    }
+
+    public static void main(String[] args) {
+        String s = "adceb";
+        String p = "*a*b";
+        System.out.println("Matching: " + isMatch(s, p));
+    }
+}
+
+####################################
+##### Pot of Gold Game #############
+####################################
+
+public class PotOfGoldGame {
+    static int maxCoins(int[] pots, int left, int right) {
+        if (left == right) {
+            return pots[left];
+        }
+        
+        // Player 1's turn
+        int pickLeft = pots[left] + Math.min(maxCoins(pots, left + 2, right), maxCoins(pots, left + 1, right - 1));
+        // Player 2's turn
+        int pickRight = pots[right] + Math.min(maxCoins(pots, left + 1, right - 1), maxCoins(pots, left, right - 2));
+        
+        return Math.max(pickLeft, pickRight);
+    }
+
+    public static void main(String[] args) {
+        int[] pots = {3, 9, 1, 2};
+        int maxCoins = maxCoins(pots, 0, pots.length - 1);
+        System.out.println("Maximum number of coins: " + maxCoins);
+    }
+}
+
+####################################
+######### Regex Pattern ############
+####################################
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexMatcher {
+    public static void main(String[] args) {
+        // Hardcoded regex pattern
+        String regexPattern = "\\bcat\\b";
+
+        // Input string to match against
+        String input = "I have a cat and a dog.";
+
+        // Create a Pattern object
+        Pattern pattern = Pattern.compile(regexPattern);
+
+        // Create a Matcher object
+        Matcher matcher = pattern.matcher(input);
+
+        // Perform the matching
+        boolean isMatched = matcher.find();
+
+        // Output whether or not the pattern matched
+        if (isMatched) {
+            System.out.println("The pattern \"" + regexPattern + "\" matched the input.");
+        } else {
+            System.out.println("The pattern \"" + regexPattern + "\" did not match the input.");
+        }
+    }
+}
+
+################################
+####Common Regex Patterns ######
+################################
+
+1. IP Address:
+   
+   String ipPattern = "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b";
+   
+
+2. Email Address:
+   
+   String emailPattern = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
+   
+
+3. Phone Number (US Format):
+   
+   String phonePattern = "\\b(?:\\d{3}-){2}\\d{4}\\b";
+   
+
+4. Date (YYYY-MM-DD Format):
+   
+   String datePattern = "\\b\\d{4}-\\d{2}-\\d{2}\\b";
+   
+
+5. URL:
+   
+   String urlPattern = "\\b(?:https?|ftp)://\\S+\\b";
+   
+
+6. Credit Card Number (Visa, Mastercard, American Express, Discover):
+   
+   String creditCardPattern = "\\b(?:\\d[ -]*?){13,16}\\b";
+   
+
+7. Username (Alphanumeric with Underscores, 3-16 characters):
+   
+   String usernamePattern = "\\b[A-Za-z0-9_]{3,16}\\b";
+   
+
+8. Hex Color Code (RGB Format):
+   
+   String hexColorPattern = "\\b#[A-Fa-f0-9]{6}\\b";
+   
+
+9. ZIP Code (US Format):
+   
+   String zipCodePattern = "\\b\\d{5}(?:-\\d{4})?\\b";
+   
+
