@@ -1,0 +1,36 @@
+######################################
+######## Hash Map to Tree Map#########
+######################################
+
+import java.util.*;
+
+public class HashMapToTreeMap {
+    public static void main(String[] args) {
+        // Create a HashMap
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "Apple");
+        hashMap.put(1, "Banana");
+        hashMap.put(2, "Orange");
+        hashMap.put(4, "Grapes");
+
+        // Convert HashMap to TreeMap
+        TreeMap<Integer, String> treeMap = new TreeMap<>(hashMap);
+
+        // Display the TreeMap
+        System.out.println("TreeMap (Natural Order): " + treeMap);
+
+        // Alternatively, you can create a TreeMap with a custom Comparator
+        TreeMap<Integer, String> customTreeMap = new TreeMap<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                // Reverse order comparator
+                return o2.compareTo(o1);
+            }
+        });
+        customTreeMap.putAll(hashMap);
+
+        // Display the custom TreeMap
+        System.out.println("TreeMap (Custom Order): " + customTreeMap);
+    }
+}
+

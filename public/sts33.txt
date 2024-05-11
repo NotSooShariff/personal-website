@@ -1,0 +1,58 @@
+#################################
+######### Hash Set      #########
+#################################
+
+import java.util.HashSet;
+import java.util.Set;
+public class HashSetExample {
+ public static void main(String[] args) {
+ // Creating a HashSet
+ Set<String> hashSet = new HashSet<>();
+ // Adding elements to the HashSet
+ hashSet.add("Apple");
+ hashSet.add("Banana");
+ hashSet.add("Orange");
+ // Displaying the elements of the HashSet
+ System.out.println("HashSet elements: " + hashSet);
+ }
+}
+
+
+###############################
+####### Linked Hash Set  ######
+###############################
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+public class Main {
+ public static void main(String[] args) {
+ // Creating a LinkedHashSet
+ Set<String> linkedHashSet = new LinkedHashSet<>();
+ // Adding elements to the LinkedHashSet
+ linkedHashSet.add("Apple");
+ linkedHashSet.add("Banana");
+ linkedHashSet.add("Orange");
+ // Displaying the elements of the LinkedHashSet
+ System.out.println("LinkedHashSet elements: " + linkedHashSet);
+ }
+}
+
+######################################
+############## Tree Set ##############
+######################################
+ import java.util.Set;
+import java.util.TreeSet;
+public class Main {
+ public static void main(String[] args) {
+ // Creating a TreeSet
+ Set<String> treeSet = new TreeSet<>();
+ // Adding elements to the TreeSet
+ treeSet.add("Apple");
+ treeSet.add("Banana");
+ treeSet.add("Orange");
+ // Displaying the elements of the TreeSet
+ System.out.println("TreeSet elements: " + treeSet);
+ }
+}
+
+

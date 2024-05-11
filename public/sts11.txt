@@ -1,0 +1,79 @@
+#################################
+#### Priority Queue using DLL  ##
+#################################
+
+class Node {
+    int data;
+    int priority;
+    Node prev, next;
+
+    Node(int data, int priority) {
+        this.data = data;
+        this.priority = priority;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+public class PriorityQueryDLL {
+    Node head;
+
+    void insert(int data, int priority) {
+        Node newNode = new Node(data, priority);
+
+        if (head == null) {
+            head = newNode;
+        } else if (priority < head.priority) {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null && current.next.priority <= priority) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            if (current.next != null) {
+                current.next.prev = newNode;
+            }
+            current.next = newNode;
+            newNode.prev = current;
+        }
+    }
+
+    int deleteMin() {
+        if (head == null) {
+            throw new IllegalStateException("PriorityQueryDLL is empty");
+        }
+        int minData = head.data;
+        head = head.next;
+        if (head != null) {
+            head.prev = null;
+        }
+        return minData;
+    }
+
+    void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.println("Data: " + current.data + ", Priority: " + current.priority);
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        PriorityQueryDLL priorityQuery = new PriorityQueryDLL();
+        priorityQuery.insert(3, 2);
+        priorityQuery.insert(5, 1);
+        priorityQuery.insert(7, 3);
+        priorityQuery.insert(9, 2);
+
+        System.out.println("Priority Query DLL:");
+        priorityQuery.printList();
+
+        System.out.println("Minimum element removed: " + priorityQuery.deleteMin());
+        System.out.println("Priority Query DLL after deleting minimum:");
+        priorityQuery.printList();
+    }
+}
+

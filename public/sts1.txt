@@ -1,0 +1,75 @@
+##################################
+#####Detect and Remove Loops######
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void detectAndRemoveLoop() {
+        Node slow = head, fast = head;
+        boolean loopExists = false;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                loopExists = true;
+                break;
+            }
+        }
+
+        if (loopExists) {
+            slow = head;
+            while (slow.next != fast.next) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            fast.next = null; // Remove the loop
+        }
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(20);
+        list.push(4);
+        list.push(15);
+        list.push(10);
+
+        // Create a loop for testing
+        list.head.next.next.next.next = list.head;
+
+        list.detectAndRemoveLoop();
+
+        System.out.println("Linked List after removing loop : ");
+        list.printList();
+    }
+}
+

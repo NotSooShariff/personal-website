@@ -1,0 +1,54 @@
+###################################
+########## Tower of Hanoi #########
+###################################
+
+import java.util.Stack;
+
+public class TowerOfHanoi {
+    
+    static void iterativeTowerOfHanoi(int n, char source, char auxiliary, char destination) {
+        // Create three stacks for source, auxiliary, and destination pegs
+        Stack<Integer> sourceStack = new Stack<>();
+        Stack<Integer> auxiliaryStack = new Stack<>();
+        Stack<Integer> destinationStack = new Stack<>();
+        
+        // Initialize source stack with disks
+        for (int i = n; i > 0; i--) {
+            sourceStack.push(i);
+        }
+        
+        // Calculate total number of moves required
+        int totalMoves = (int) Math.pow(2, n) - 1;
+        
+        // If number of disks is even, swap auxiliary and destination pegs
+        if (n % 2 == 0) {
+            char temp = auxiliary;
+            auxiliary = destination;
+            destination = temp;
+        }
+        
+        // Iterate through each move
+        for (int move = 1; move <= totalMoves; move++) {
+            if (move % 3 == 1) {
+                moveDiskBetweenPegs(sourceStack, destinationStack, source, destination);
+            } else if (move % 3 == 2) {
+                moveDiskBetweenPegs(sourceStack, auxiliaryStack, source, auxiliary);
+            } else if (move % 3 == 0) {
+                moveDiskBetweenPegs(auxiliaryStack, destinationStack, auxiliary, destination);
+            }
+        }
+    }
+    
+    static void moveDiskBetweenPegs(Stack<Integer> source, Stack<Integer> destination, char sourcePeg, char destinationPeg) {
+        if (!source.isEmpty() && (destination.isEmpty() || source.peek() < destination.peek())) {
+            int disk = source.pop();
+            destination.push(disk);
+            System.out.println("Move disk " + disk + " from " + sourcePeg + " to " + destinationPeg);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 3; // Number of disks
+        iterativeTowerOfHanoi(n, 'A', 'B', 'C');
+    }
+}

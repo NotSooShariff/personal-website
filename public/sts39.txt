@@ -1,0 +1,40 @@
+#######################################
+#### Longest Palindromic Subsequence ##
+#######################################
+
+public class LongestPalindromicSubsequence {
+    public static void main(String[] args) {
+        String s = "bbbab";
+        System.out.println("Length of Longest Palindromic Subsequence: " + longestPalindromeSubseq(s));
+    }
+
+    public static int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        if (n == 0) {
+            return 0;
+        }
+
+        // Create a 2D array to store the lengths of LPS for substrings
+        int[][] dp = new int[n][n];
+
+        // Base case: LPS length is 1 for single characters
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = 1;
+        }
+
+        // Fill the dp array in a bottom-up manner
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j - 1] + 2; // Characters match, increment length by 2
+                } else {
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]); // Characters don't match, take the maximum of left or bottom cell
+                }
+            }
+        }
+
+        // The length of the LPS for the entire string is stored in dp[0][n-1]
+        return dp[0][n - 1];
+    }
+}

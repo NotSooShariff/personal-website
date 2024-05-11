@@ -1,0 +1,65 @@
+#################################
+##### Bellman Ford Edges ########
+#################################
+
+import java.util.*;
+
+public class BellmanFord {
+
+    static class Edge {
+        int source, destination, weight;
+
+        Edge(int source, int destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
+        }
+    }
+
+    static void bellmanFord(int V, int E, int source, List<Edge> edges) {
+        int[] distance = new int[V];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
+
+        // Relax all edges V-1 times
+        for (int i = 1; i < V; ++i) {
+            for (Edge edge : edges) {
+                if (distance[edge.source] != Integer.MAX_VALUE && distance[edge.source] + edge.weight < distance[edge.destination]) {
+                    distance[edge.destination] = distance[edge.source] + edge.weight;
+                }
+            }
+        }
+
+        // Check for negative-weight cycles
+        for (Edge edge : edges) {
+            if (distance[edge.source] != Integer.MAX_VALUE && distance[edge.source] + edge.weight < distance[edge.destination]) {
+                System.out.println("Graph contains negative-weight cycle");
+                return;
+            }
+        }
+
+        // Print the shortest distances
+        System.out.println("Shortest distances from source " + source + ":");
+        for (int i = 0; i < V; ++i) {
+            System.out.println("Vertex " + i + ": " + distance[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        int V = 5; // Number of vertices
+        int E = 8; // Number of edges
+        int source = 0; // Source vertex
+
+        List<Edge> edges = new ArrayList<>();
+        edges.add(new Edge(0, 1, -1));
+        edges.add(new Edge(0, 2, 4));
+        edges.add(new Edge(1, 2, 3));
+        edges.add(new Edge(1, 3, 2));
+        edges.add(new Edge(1, 4, 2));
+        edges.add(new Edge(3, 2, 5));
+        edges.add(new Edge(3, 1, 1));
+        edges.add(new Edge(4, 3, -3));
+
+        bellmanFord(V, E, source, edges);
+    }
+}

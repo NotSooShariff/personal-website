@@ -1,0 +1,83 @@
+################################
+#### Boundary Traversal ########
+################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class BoundaryTraversal {
+
+    static void boundaryTraversal(TreeNode root) {
+        if (root == null) return;
+
+        System.out.print(root.val + " ");
+
+        // Print the left boundary (excluding the leaf node)
+        printLeftBoundary(root.left);
+
+        // Print the leaf nodes
+        printLeaves(root.left);
+        printLeaves(root.right);
+
+        // Print the right boundary (excluding the leaf node)
+        printRightBoundary(root.right);
+    }
+
+    static void printLeftBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        System.out.print(node.val + " ");
+
+        if (node.left != null) {
+            printLeftBoundary(node.left);
+        } else {
+            printLeftBoundary(node.right);
+        }
+    }
+
+    static void printRightBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) return;
+
+        if (node.right != null) {
+            printRightBoundary(node.right);
+        } else {
+            printRightBoundary(node.left);
+        }
+
+        System.out.print(node.val + " ");
+    }
+
+    static void printLeaves(TreeNode node) {
+        if (node == null) return;
+
+        printLeaves(node.left);
+
+        if (node.left == null && node.right == null) {
+            System.out.print(node.val + " ");
+        }
+
+        printLeaves(node.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(20);
+        root.left = new TreeNode(8);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(12);
+        root.left.right.left = new TreeNode(10);
+        root.left.right.right = new TreeNode(14);
+        root.right = new TreeNode(22);
+        root.right.right = new TreeNode(25);
+
+        System.out.println("Boundary Traversal:");
+        boundaryTraversal(root);
+    }
+}

@@ -1,0 +1,93 @@
+###################################
+#### K - Ary Heap #################
+###################################
+
+public class KaryHeap {
+    private int[] heapArray;
+    private int capacity;
+    private int size;
+    private int k;
+
+    public KaryHeap(int capacity, int k) {
+        this.capacity = capacity;
+        this.heapArray = new int[capacity];
+        this.size = 0;
+        this.k = k;
+    }
+
+    public void insert(int value) {
+        if (size == capacity) {
+            System.out.println("Heap is full, cannot insert more elements.");
+            return;
+        }
+
+        heapArray[size] = value;
+        size++;
+        heapifyUp(size - 1);
+    }
+
+    public int extractMax() {
+        if (size == 0) {
+            System.out.println("Heap is empty, cannot extract max element.");
+            return -1;
+        }
+
+        int max = heapArray[0];
+        heapArray[0] = heapArray[size - 1];
+        size--;
+        heapifyDown(0);
+        return max;
+    }
+
+    private void heapifyUp(int index) {
+        int parent = (index - 1) / k;
+        while (index > 0 && heapArray[index] > heapArray[parent]) {
+            swap(index, parent);
+            index = parent;
+            parent = (index - 1) / k;
+        }
+    }
+
+    private void heapifyDown(int index) {
+        int maxChildIndex = getMaxChildIndex(index);
+        while (maxChildIndex != -1 && heapArray[maxChildIndex] > heapArray[index]) {
+            swap(index, maxChildIndex);
+            index = maxChildIndex;
+            maxChildIndex = getMaxChildIndex(index);
+        }
+    }
+
+    private int getMaxChildIndex(int index) {
+        int maxChildIndex = -1;
+        int startChildIndex = k * index + 1;
+        int endChildIndex = Math.min(startChildIndex + k, size);
+        for (int i = startChildIndex; i < endChildIndex; i++) {
+            if (heapArray[i] > heapArray[index]) {
+                if (maxChildIndex == -1 || heapArray[i] > heapArray[maxChildIndex]) {
+                    maxChildIndex = i;
+                }
+            }
+        }
+        return maxChildIndex;
+    }
+
+    private void swap(int i, int j) {
+        int temp = heapArray[i];
+        heapArray[i] = heapArray[j];
+        heapArray[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        KaryHeap heap = new KaryHeap(10, 3); // Capacity: 10, K: 3
+        heap.insert(5);
+        heap.insert(10);
+        heap.insert(7);
+        heap.insert(1);
+        heap.insert(3);
+        heap.insert(8);
+
+        System.out.println("Max element extracted: " + heap.extractMax());
+        System.out.println("Max element extracted: " + heap.extractMax());
+        System.out.println("Max element extracted: " + heap.extractMax());
+    }
+}

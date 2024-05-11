@@ -1,0 +1,66 @@
+##################################
+###### Binomial Tree     #########
+##################################
+
+public class BinomialTree {
+    int key;
+    int degree;
+    BinomialTree child;
+    BinomialTree sibling;
+    BinomialTree parent;
+
+    public BinomialTree(int key) {
+        this.key = key;
+        this.degree = 0;
+        this.child = null;
+        this.sibling = null;
+        this.parent = null;
+    }
+
+    // Merge two binomial trees of the same order
+    public void merge(BinomialTree tree) {
+        if (this.key > tree.key) {
+            // Make 'tree' the leftmost child of 'this'
+            tree.sibling = this.child;
+            this.child = tree;
+            this.degree++;
+            tree.parent = this;
+        } else {
+            // Make 'this' the leftmost child of 'tree'
+            this.sibling = tree.child;
+            tree.child = this;
+            tree.degree++;
+            this.parent = tree;
+        }
+    }
+
+    // Print the keys of nodes in the binomial tree
+    public void printKeys() {
+        BinomialTree current = this;
+        while (current != null) {
+            System.out.print(current.key + " ");
+            if (current.child != null) {
+                current.child.printKeys();
+            }
+            current = current.sibling;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        BinomialTree root1 = new BinomialTree(1);
+        BinomialTree root2 = new BinomialTree(2);
+
+        root1.merge(root2);
+
+        BinomialTree root3 = new BinomialTree(3);
+        BinomialTree root4 = new BinomialTree(4);
+
+        root3.merge(root4);
+
+        root1.merge(root3);
+
+        System.out.println("Keys of nodes in the binomial tree:");
+        root1.printKeys();
+    }
+}

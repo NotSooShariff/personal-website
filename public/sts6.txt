@@ -1,0 +1,66 @@
+#################################
+######## Minimum Stack ########## 
+#################################
+
+import java.util.Stack;
+
+class MinimumStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    MinimumStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    void push(int x) {
+        stack.push(x);
+        if (minStack.isEmpty() || x <= minStack.peek()) {
+            minStack.push(x);
+        }
+    }
+
+    void pop() {
+        if (!stack.isEmpty()) {
+            int popped = stack.pop();
+            if (popped == minStack.peek()) {
+                minStack.pop();
+            }
+        }
+    }
+
+    int top() {
+        if (!stack.isEmpty()) {
+            return stack.peek();
+        }
+        return -1; // or throw an exception
+    }
+
+    int getMinimum() {
+        if (!minStack.isEmpty()) {
+            return minStack.peek();
+        }
+        return -1; // or throw an exception
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MinimumStack minStack = new MinimumStack();
+        minStack.push(3);
+        minStack.push(5);
+        minStack.push(2);
+        minStack.push(1);
+
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 1
+
+        minStack.pop();
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 2
+
+        minStack.pop();
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 2
+
+        minStack.push(0);
+        System.out.println("Current Minimum: " + minStack.getMinimum()); // Output: 0
+    }
+}

@@ -1,0 +1,111 @@
+##############################
+####Merge Sort on DLL ########
+##############################
+
+class Node {
+    int data;
+    Node prev, next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    void printList(Node node) {
+        Node temp = node;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    Node mergeSort(Node head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        Node mid = getMiddle(head);
+        Node nextOfMid = mid.next;
+        mid.next = null;
+
+        Node left = mergeSort(head);
+        Node right = mergeSort(nextOfMid);
+
+        return merge(left, right);
+    }
+
+    Node merge(Node left, Node right) {
+        if (left == null) return right;
+        if (right == null) return left;
+
+        Node result = null;
+
+        if (left.data <= right.data) {
+            result = left;
+            result.next = merge(left.next, right);
+            result.next.prev = result;
+        } else {
+            result = right;
+            result.next = merge(left, right.next);
+            result.next.prev = result;
+        }
+
+        return result;
+    }
+
+    Node getMiddle(Node head) {
+        if (head == null) return head;
+
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(6);
+        list.insert(5);
+        list.insert(3);
+        list.insert(1);
+        list.insert(8);
+        list.insert(7);
+        list.insert(2);
+        list.insert(4);
+
+        System.out.println("Original Doubly Linked List:");
+        list.printList(list.head);
+
+        list.head = list.mergeSort(list.head);
+
+        System.out.println("Sorted Doubly Linked List:");
+        list.printList(list.head);
+    }
+}
+

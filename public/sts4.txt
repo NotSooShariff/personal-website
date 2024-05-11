@@ -1,0 +1,139 @@
+################################
+###Sort the bitonic using dll ##
+################################
+
+class Node {
+    int data;
+    Node prev, next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    void sortBitonic() {
+        if (head == null || head.next == null)
+            return;
+
+        Node mid = findMid(head);
+        Node secondHalf = mid.next;
+        mid.next = null;
+        secondHalf.prev = null;
+
+        secondHalf = reverse(secondHalf);
+
+        merge(head, secondHalf);
+    }
+
+    Node findMid(Node head) {
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    Node reverse(Node head) {
+        Node current = head, prev = null;
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            current.prev = nextNode;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
+
+    void merge(Node first, Node second) {
+        Node temp = null;
+
+        while (first != null && second != null) {
+            if (first.data < second.data) {
+                if (temp == null) {
+                    temp = first;
+                    head = temp;
+                } else {
+                    temp.next = first;
+                    first.prev = temp;
+                    temp = temp.next;
+                }
+                first = first.next;
+            } else {
+                if (temp == null) {
+                    temp = second;
+                    head = temp;
+                } else {
+                    temp.next = second;
+                    second.prev = temp;
+                    temp = temp.next;
+                }
+                second = second.next;
+            }
+        }
+
+        if (first != null) {
+            temp.next = first;
+            first.prev = temp;
+        }
+
+        if (second != null) {
+            temp.next = second;
+            second.prev = temp;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(2);
+        list.insert(3);
+        list.insert(5);
+        list.insert(7);
+        list.insert(9);
+        list.insert(8);
+        list.insert(6);
+        list.insert(4);
+
+        System.out.println("Original Linked List:");
+        list.printList();
+
+        list.sortBitonic();
+
+        System.out.println("Sorted Bitonic Linked List:");
+        list.printList();
+    }
+}
+

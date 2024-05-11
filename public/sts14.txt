@@ -1,0 +1,60 @@
+################################
+#Recover the binary search tree#
+################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class RecoverBST {
+
+    TreeNode firstNode = null;
+    TreeNode secondNode = null;
+    TreeNode prevNode = new TreeNode(Integer.MIN_VALUE);
+
+    public void recoverTree(TreeNode root) {
+        // Traverse the BST in-order to find the misplaced nodes
+        inorderTraversal(root);
+
+        // Swap the values of the misplaced nodes
+        int temp = firstNode.val;
+        firstNode.val = secondNode.val;
+        secondNode.val = temp;
+    }
+
+    private void inorderTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorderTraversal(root.left);
+
+        // Check if the current node violates the BST property
+        if (firstNode == null && prevNode.val >= root.val) {
+            firstNode = prevNode;
+        }
+        if (firstNode != null && prevNode.val >= root.val) {
+            secondNode = root;
+        }
+        prevNode = root;
+
+        inorderTraversal(root.right);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(4);
+        root.right.left = new TreeNode(2);
+
+        RecoverBST recoverBST = new RecoverBST();
+        recoverBST.recoverTree(root);
+    }
+}

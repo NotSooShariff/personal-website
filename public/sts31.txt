@@ -1,0 +1,56 @@
+#################################
+####### Winner Tree #############
+#################################
+
+public class WinnerTree {
+    private int[] players; // Array to store player scores
+    private int[] tree; // Winner tree array
+    private int n; // Number of players
+
+    public WinnerTree(int[] players) {
+        this.players = players;
+        this.n = players.length;
+        this.tree = new int[2 * n];
+        buildTree();
+    }
+
+    private void buildTree() {
+        // Fill the initial leaves with player indices
+        for (int i = 0; i < n; i++) {
+            tree[n + i] = i;
+        }
+
+        // Build the winner tree bottom-up
+        for (int i = n - 1; i > 0; i--) {
+            tree[i] = players[tree[2 * i]] >= players[tree[2 * i + 1]] ? tree[2 * i] : tree[2 * i + 1];
+        }
+    }
+
+    public int getWinnerIndex() {
+        return tree[1]; // Root of the winner tree contains the index of the winner
+    }
+
+    public void updatePlayerScore(int index, int newScore) {
+        players[index] = newScore;
+        updateTree(index);
+    }
+
+    private void updateTree(int index) {
+        index += n; // Convert player index to leaf index
+        while (index > 1) {
+            index /= 2;
+            tree[index] = players[tree[2 * index]] >= players[tree[2 * index + 1]] ? tree[2 * index] : tree[2 * index + 1];
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] players = {10, 15, 8, 20, 18, 12};
+        WinnerTree winnerTree = new WinnerTree(players);
+
+        System.out.println("Winner index: " + winnerTree.getWinnerIndex());
+
+        // Update player score and recompute winner
+        winnerTree.updatePlayerScore(2, 25);
+        System.out.println("Updated winner index: " + winnerTree.getWinnerIndex());
+    }
+}

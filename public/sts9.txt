@@ -1,0 +1,76 @@
+#################################
+### Tower of Hanoi Max Height ###
+#################################
+
+import java.util.*;
+
+public class TowerOfHanoi {
+    
+    static int maxTowerHeight(int n, int[] initialPositions) {
+        // Create a map to store the initial positions of disks
+        Map<Integer, Integer> diskPositions = new HashMap<>();
+        for (int i = 0; i < initialPositions.length; i++) {
+            diskPositions.put(i + 1, initialPositions[i]);
+        }
+        
+        // Initialize the maximum height as the height of the tallest tower
+        int maxHeight = 0;
+        for (int i = 0; i < initialPositions.length; i++) {
+            if (initialPositions[i] > maxHeight) {
+                maxHeight = initialPositions[i];
+            }
+        }
+        
+        // Perform the Tower of Hanoi algorithm to move disks
+        Stack<Integer> source = new Stack<>();
+        Stack<Integer> auxiliary = new Stack<>();
+        Stack<Integer> destination = new Stack<>();
+        
+        for (int i = n; i >= 1; i--) {
+            source.push(i);
+        }
+        
+        int totalMoves = (int)Math.pow(2, n) - 1;
+        for (int move = 1; move <= totalMoves; move++) {
+            if (move % 3 == 1) {
+                moveDisk(source, destination, diskPositions);
+            } else if (move % 3 == 2) {
+                moveDisk(source, auxiliary, diskPositions);
+            } else if (move % 3 == 0) {
+                moveDisk(auxiliary, destination, diskPositions);
+            }
+            
+            // Update the maximum height
+            int currentHeight = Math.max(source.size(), Math.max(auxiliary.size(), destination.size()));
+            if (currentHeight > maxHeight) {
+                maxHeight = currentHeight;
+            }
+        }
+        
+        return maxHeight;
+    }
+    
+    static void moveDisk(Stack<Integer> source, Stack<Integer> destination, Map<Integer, Integer> diskPositions) {
+        if (!source.isEmpty() && (destination.isEmpty() || source.peek() < destination.peek())) {
+            int disk = source.pop();
+            int currentHeight = destination.size();
+            int targetHeight = diskPositions.get(disk);
+            while (currentHeight < targetHeight) {
+                destination.push(Integer.MAX_VALUE); // Placeholder for disks smaller than the target disk
+                currentHeight++;
+            }
+            destination.push(disk);
+        } else if (!destination.isEmpty() && (source.isEmpty() || destination.peek() < source.peek())) {
+            int disk = destination.pop();
+            source.push(disk);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 3; // Number of disks
+        int[] initialPositions = {1, 1, 1}; // Initial positions of disks
+        int maxHeight = maxTowerHeight(n, initialPositions);
+        System.out.println("Maximum height reached: " + maxHeight);
+    }
+}
+

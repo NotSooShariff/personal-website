@@ -1,0 +1,90 @@
+##############################
+## Vertical Order Traversal###
+##############################
+
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class VerticalOrderTraversal {
+
+    static class QueueNode {
+        TreeNode node;
+        int hd; // Horizontal distance
+
+        QueueNode(TreeNode node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    static List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        Queue<QueueNode> queue = new LinkedList<>();
+        queue.offer(new QueueNode(root, 0));
+
+        int minHd = 0, maxHd = 0;
+
+        while (!queue.isEmpty()) {
+            QueueNode qNode = queue.poll();
+            TreeNode node = qNode.node;
+            int hd = qNode.hd;
+
+            // Update minHd and maxHd
+            minHd = Math.min(minHd, hd);
+            maxHd = Math.max(maxHd, hd);
+
+            // Add node to the map
+            if (!map.containsKey(hd)) {
+                map.put(hd, new ArrayList<>());
+            }
+            map.get(hd).add(node.val);
+
+            // Add left child to the queue
+            if (node.left != null) {
+                queue.offer(new QueueNode(node.left, hd - 1));
+            }
+            // Add right child to the queue
+            if (node.right != null) {
+                queue.offer(new QueueNode(node.right, hd + 1));
+            }
+        }
+
+        // Construct the result list from the map
+        for (int i = minHd; i <= maxHd; i++) {
+            if (map.containsKey(i)) {
+                result.add(map.get(i));
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        List<List<Integer>> result = verticalOrder(root);
+        System.out.println("Vertical Order Traversal:");
+        for (List<Integer> list : result) {
+            System.out.println(list);
+        }
+    }
+}

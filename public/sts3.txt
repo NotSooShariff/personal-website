@@ -1,0 +1,92 @@
+##################################
+##### Segregate Even and Odd######
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void segregateEvenOdd() {
+        Node evenStart = null, evenEnd = null;
+        Node oddStart = null, oddEnd = null;
+        Node current = head;
+
+        while (current != null) {
+            int val = current.data;
+
+            if (val % 2 == 0) { // Even
+                if (evenStart == null) {
+                    evenStart = current;
+                    evenEnd = evenStart;
+                } else {
+                    evenEnd.next = current;
+                    evenEnd = evenEnd.next;
+                }
+            } else { // Odd
+                if (oddStart == null) {
+                    oddStart = current;
+                    oddEnd = oddStart;
+                } else {
+                    oddEnd.next = current;
+                    oddEnd = oddEnd.next;
+                }
+            }
+
+            current = current.next;
+        }
+
+        if (evenStart == null || oddStart == null)
+            return;
+
+        evenEnd.next = oddStart;
+        oddEnd.next = null;
+
+        head = evenStart;
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(17);
+        list.push(15);
+        list.push(8);
+        list.push(12);
+        list.push(10);
+        list.push(5);
+        list.push(4);
+        list.push(1);
+
+        System.out.println("Original Linked List:");
+        list.printList();
+
+        list.segregateEvenOdd();
+
+        System.out.println("Linked List after segregating even and odd nodes:");
+        list.printList();
+    }
+}

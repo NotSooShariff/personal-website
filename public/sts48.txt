@@ -1,0 +1,24 @@
+####################################
+##### Pot of Gold Game #############
+####################################
+
+public class PotOfGoldGame {
+    static int maxCoins(int[] pots, int left, int right) {
+        if (left == right) {
+            return pots[left];
+        }
+        
+        // Player 1's turn
+        int pickLeft = pots[left] + Math.min(maxCoins(pots, left + 2, right), maxCoins(pots, left + 1, right - 1));
+        // Player 2's turn
+        int pickRight = pots[right] + Math.min(maxCoins(pots, left + 1, right - 1), maxCoins(pots, left, right - 2));
+        
+        return Math.max(pickLeft, pickRight);
+    }
+
+    public static void main(String[] args) {
+        int[] pots = {3, 9, 1, 2};
+        int maxCoins = maxCoins(pots, 0, pots.length - 1);
+        System.out.println("Maximum number of coins: " + maxCoins);
+    }
+}

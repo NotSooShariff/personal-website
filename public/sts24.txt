@@ -1,0 +1,54 @@
+##################################
+####### Dahls Algorithm   ########
+##################################
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode parent; // Pointer to the parent node
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class DahlTraversal {
+
+    static void dahlTraversal(TreeNode root) {
+        TreeNode current = root;
+
+        while (current != null) {
+            if (current.left != null && current.left.parent != current) {
+                current = current.left;
+            } else if (current.right != null && current.right.parent != current) {
+                current = current.right;
+            } else {
+                System.out.print(current.val + " ");
+                current = current.parent;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.parent = root;
+        root.right.parent = root;
+
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.left.parent = root.left;
+        root.left.right.parent = root.left;
+
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+        root.right.left.parent = root.right;
+        root.right.right.parent = root.right;
+
+        System.out.println("Dahl's Traversal:");
+        dahlTraversal(root);
+    }
+}

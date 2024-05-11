@@ -1,0 +1,57 @@
+####################################
+###Sort Queue without Extra Space###
+####################################
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class SortQueueWithoutExtraSpace {
+
+    static void sortQueue(Queue<Integer> queue) {
+        int n = queue.size();
+        
+        // Iterate through the queue n times
+        for (int i = 0; i < n; i++) {
+            // Find the minimum element in the current iteration
+            int minIndex = findMinIndex(queue, n - i);
+            
+            // Move the minimum element to the rear
+            for (int j = 0; j < n; j++) {
+                int current = queue.poll();
+                if (j != minIndex) {
+                    queue.offer(current);
+                }
+            }
+            queue.offer(queue.poll()); // Move the minimum element to the rear
+        }
+    }
+
+    // Find the index of the minimum element in the first n elements of the queue
+    static int findMinIndex(Queue<Integer> queue, int n) {
+        int minIndex = -1;
+        int minValue = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            int current = queue.poll();
+            if (current < minValue) {
+                minIndex = i;
+                minValue = current;
+            }
+            queue.offer(current);
+        }
+        return minIndex;
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(30);
+        queue.offer(11);
+        queue.offer(15);
+        queue.offer(4);
+        queue.offer(22);
+
+        System.out.println("Original Queue: " + queue);
+        sortQueue(queue);
+        System.out.println("Sorted Queue: " + queue);
+    }
+}
+

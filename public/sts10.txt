@@ -1,0 +1,40 @@
+############################
+####Stack Permutation#######
+############################
+
+import java.util.Stack;
+
+public class StackPermutation {
+    
+    static boolean isStackPermutation(int[] original, int[] permutation) {
+        Stack<Integer> stack = new Stack<>();
+        int index = 0;
+        
+        for (int i = 0; i < permutation.length; i++) {
+            // Push elements from the original permutation onto the stack
+            while (stack.isEmpty() || stack.peek() != permutation[i]) {
+                if (index >= original.length) {
+                    return false;
+                }
+                stack.push(original[index]);
+                index++;
+            }
+            // Pop elements from the stack until it matches the current element in the permutation
+            while (!stack.isEmpty() && stack.peek() == permutation[i]) {
+                stack.pop();
+                i++;
+            }
+            // Decrement i to handle the current element in the next iteration of the loop
+            i--;
+        }
+        
+        // If the stack is empty, all elements have been matched successfully
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        int[] original = {1, 2, 3};
+        int[] permutation = {3, 1, 2};
+        System.out.println("Is permutation achievable using stack? " + isStackPermutation(original, permutation));
+    }
+}

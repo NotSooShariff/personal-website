@@ -1,0 +1,60 @@
+##################################
+##########Detect  Loops###########
+##################################
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    boolean detectLoop() {
+        Node slow = head, fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.push(20);
+        list.push(4);
+        list.push(15);
+        list.push(10);
+
+        // Create a loop for testing
+        list.head.next.next.next.next = list.head;
+
+        boolean loopExists = list.detectLoop();
+
+        if (loopExists) {
+            System.out.println("Loop exists in the linked list.");
+        } else {
+            System.out.println("No loop exists in the linked list.");
+        }
+    }
+}
+
