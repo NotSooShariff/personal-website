@@ -1,5 +1,8 @@
 # Personal Portfolio Website
 
+> [!NOTE]
+> I no longer maintain this repository, Please check out my new [portfolio website](https://github.com/NotSooShariff/portfolio)
+
 This repository contains the source code for my personal portfolio website, built using Next.js, Tailwind CSS, ESLint, and more. This website serves as a showcase of my projects, skills, and experiences. Feel free to explore it to learn more about me and my work.
 
 ## Technologies Used
